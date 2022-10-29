@@ -301,6 +301,19 @@ function horizontalScrolling(){
 }
 window.addEventListener("scroll", horizontalScrolling);
 
+// when resizing
+window.addEventListener('resize', (e) => {
+    let innerHeight = e.target.innerHeight;
+    let resize = document.getElementById('resize');
+
+    if(innerHeight > 700) {
+        resize.style.display = 'none';
+        window.location.href = window.location.href;
+    } else {
+        resize.style.display = 'block';
+    }
+});
+
 // reloading
 window.onload = function() {
     setTimeout(function() {

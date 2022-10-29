@@ -63,7 +63,6 @@ gsap.set(".contact .cont.c2", {duration: 0, opacity: 0})
 // footer 
 gsap.set(".footer", {duration: 0, opacity: 0})
 
-
 setTimeout(() => {
     let tl = gsap.timeline();
 
