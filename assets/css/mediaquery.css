@@ -63,6 +63,7 @@
     }
     .script-horizontal .script-hor {
         display: flex;
+        left: 0 !important;
         flex-direction: column;
         width: 100%;
     }

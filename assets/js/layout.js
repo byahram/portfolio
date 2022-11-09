@@ -207,6 +207,12 @@ function scrolling() {
 
                 tl.to(".frontend .work.vue1 .imgWrap", {duration: 0.5, opacity: 1})
                 tl.to(".frontend .work.vue1 .descWrap", {duration: 0.5, opacity: 1})
+
+                tl.to(".frontend .work.react3 .imgWrap", {duration: 0.5, opacity: 1})
+                tl.to(".frontend .work.react3 .descWrap", {duration: 0.5, opacity: 1})
+
+                tl.to(".frontend .work.php1 .imgWrap", {duration: 0.5, opacity: 1})
+                tl.to(".frontend .work.php1 .descWrap", {duration: 0.5, opacity: 1})
             }
         }
 
