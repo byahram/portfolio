@@ -344,7 +344,9 @@ function horizontalScrolling(){
 
     requestAnimationFrame(horizontalScrolling);
 }
-window.addEventListener("scroll", horizontalScrolling);
+if(window.innerWidth > 950) {
+    window.addEventListener("scroll", horizontalScrolling);
+}
 
 // when resizing
 window.addEventListener("resize", (e) => {
