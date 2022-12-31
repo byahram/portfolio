@@ -1,67 +1,67 @@
 // loading page
-//  function loading(){
-//     const progress = $(".progress"),
-//     progressText = progress.find(".progress-text");
+function loading(){
+    const progress = $(".progress"),
+    progressText = progress.find(".progress-text");
 
-//     let imgLoad = imagesLoaded("body"),
-//         imgTotal = imgLoad.images.length,
-//         imgLoaded = 0,
-//         imgCurrent = 0,
-//         progressTimer = setInterval(updateProgress, 500/60);
+    let imgLoad = imagesLoaded("body"),
+        imgTotal = imgLoad.images.length,
+        imgLoaded = 0,
+        imgCurrent = 0,
+        progressTimer = setInterval(updateProgress, 500/60);
 
-//     imgLoad.on("progress",function(){
-//         imgLoaded++;
-//     })
+    imgLoad.on("progress",function(){
+        imgLoaded++;
+    })
 
-//     function updateProgress(){
-//         let target = (imgLoaded / imgTotal) * 100;
+    function updateProgress(){
+        let target = (imgLoaded / imgTotal) * 100;
 
-//         imgCurrent += (target - imgCurrent) * 0.1;
-//         progressText.text(Math.floor(imgCurrent) + "%");
+        imgCurrent += (target - imgCurrent) * 0.1;
+        progressText.text(Math.floor(imgCurrent) + "%");
 
-//         if(imgCurrent >= 100) {
-//             clearInterval(progressTimer)
-//             progress.delay(1000).fadeOut(1000);
-//             setTimeout(function(){
-//                 //2초후 등장 애니메이션
-//                 let tl = gsap.timeline();
+        if(imgCurrent >= 100) {
+            clearInterval(progressTimer)
+            progress.delay(1000).fadeOut(1000);
+            setTimeout(function(){
+                //2초후 등장 애니메이션
+                let tl = gsap.timeline();
 
-//                 // 마우스 방향에 따른 이미지
-//                 let x = 0,
-//                     y = 0,
-//                     mouseX = 0,
-//                     mouseY = 0,
-//                     angleX = 0,
-//                     angleY = 0,
-//                     fmouseX = 0,
-//                     fmouseY = 0;
+                // 마우스 방향에 따른 이미지
+                let x = 0,
+                    y = 0,
+                    mouseX = 0,
+                    mouseY = 0,
+                    angleX = 0,
+                    angleY = 0,
+                    fmouseX = 0,
+                    fmouseY = 0;
 
-//                 function handleMove(event) {
-//                     x = event.pageX;
-//                     y = event.pageY;
-//                     //console.log(x, y)
-//                     //mouseX = window.innerWidth / 2 - x; //마우스 x좌표값 가운데
+                function handleMove(event) {
+                    x = event.pageX;
+                    y = event.pageY;
+                    //console.log(x, y)
+                    //mouseX = window.innerWidth / 2 - x; //마우스 x좌표값 가운데
 
-//                     // 마우스 위치 최대 50 , 최소 -50
-//                     mouseX = Math.max(-50, Math.min(50, window.innerWidth / 2 - x ));
-//                     mouseY = Math.max(-50, Math.min(50, window.innerHeight / 2 - y));
+                    // 마우스 위치 최대 50 , 최소 -50
+                    mouseX = Math.max(-50, Math.min(50, window.innerWidth / 2 - x ));
+                    mouseY = Math.max(-50, Math.min(50, window.innerHeight / 2 - y));
 
-//                     angleX = (12 * mouseX) / 100; // 계산
-//                     angleY = (12 * mouseY) / 100;
+                    angleX = (12 * mouseX) / 100; // 계산
+                    angleY = (12 * mouseY) / 100;
 
-//                     fmouseX += (angleX - fmouseX) * 0.1 // = 1 / 10
-//                     fmouseY += (angleY - fmouseY) * 0.1 // = 1 / 10
-//                 }
+                    fmouseX += (angleX - fmouseX) * 0.1 // = 1 / 10
+                    fmouseY += (angleY - fmouseY) * 0.1 // = 1 / 10
+                }
 
-//                 window.addEventListener("mousemove", handleMove);
-//             },2100)
-//         }
-//         if(imgCurrent > 99) {
-//             imgCurrent = 100;
-//         } 
-//     }
-// }
-// loading ();
+                window.addEventListener("mousemove", handleMove);
+            },2100)
+        }
+        if(imgCurrent > 99) {
+            imgCurrent = 100;
+        } 
+    }
+}
+loading ();
 
 // get Date
 document.querySelector(".mypage__inner .curDate").innerText = formatDate(new Date(), "yyyy-MMM-d dddd h:mmtt");
@@ -157,15 +157,11 @@ document.addEventListener("mousemove", (e) => {
     let c2Sec = document.querySelector(".contact .cont.c2");
     let c2SecOffset = getOffsetTop(c2Sec);
 
-    // gsap.to(cursor, {duration: 0.2, left: e.pageX - 8, top: e.pageY -8});
-
     if(scrollTop >= c2SecOffset-100) {
         console.log("here!!!");
-        // cursor.style.opacity = "0";
         cursorB.style.opacity = "1";
         gsap.to(cursorB, {duration: 0.3, left: e.pageX - 20, top: e.pageY - 20});
     } else {
-        // cursor.style.opacity = "1";
         cursorB.style.opacity = "0";
     }
 
@@ -344,9 +340,7 @@ function horizontalScrolling(){
 
     requestAnimationFrame(horizontalScrolling);
 }
-if(window.innerWidth > 950) {
-    window.addEventListener("scroll", horizontalScrolling);
-}
+window.addEventListener("scroll", horizontalScrolling);
 
 // when resizing
 window.addEventListener("resize", (e) => {
@@ -358,10 +352,6 @@ window.addEventListener("resize", (e) => {
         resize.style.display = 'none';
     } else {
         resize.style.display = 'block';
-    }
-
-    if(window.innerWidth < 950) {
-        horizontalScrolling();
     }
 });
 
