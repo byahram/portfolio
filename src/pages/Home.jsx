@@ -5,16 +5,11 @@ const Home = () => {
     <section id="home" className="section">
       <div className="section__container">
         <h2>Home</h2>
-        <div className="w-[300px] text-end">
+        <div className="text-end">
           Born in 1996 in Seoul, Korea. <br />
-          Passionate and dedicated junior frontend developer <br />
-          with a strong foundation in HTML, CSS, and JavaScript. <br />
-          Eager to contribute creativity and technical skills <br />
-          to create visually appealing and user-friendly web applications.
-          <br />
-          Continuouslyf expanding expertise in modern frontend frameworks and
-          staying abreast of industry best practices. <br />A quick learner,
-          collaborative team player, and committed to delivering high-quality,
+          Passionate and dedicated junior frontend developer. <br />
+          A quick learner, collaborative team player, <br />
+          and committed to delivering high-quality, <br />
           responsive user interfaces <br />
           that enhance the overall user experience.
         </div>

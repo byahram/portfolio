@@ -18,7 +18,7 @@ const AnimRoutes = () => {
         <Route path="/portfolio/about" element={<About />} />
         <Route path="/portfolio/skills" element={<Skill />} />
         <Route path="/portfolio/work" element={<Work />} />
-        <Route path="/portfolio/project" element={<Project />} />
+        <Route path="/portfolio/projects" element={<Project />} />
         <Route path="/portfolio/contact" element={<Contact />} />
       </Routes>
     </AnimatePresence>

@@ -1,8 +1,14 @@
-import React from "react"; // eslint-disable-line no-unused-vars
-// import WorkItem from "../components/WorkItem";
+import React, { useState } from "react"; // eslint-disable-line no-unused-vars
+import WorkModal from "../components/WorkModal";
 import { WorkList } from "../utils/WorkList";
+// import Lottie from 'react-lottie';
 
 const Work = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   return (
     <section id="work" className="section bg-slate-600">
       {/** <div className="inner"> */}
@@ -13,22 +19,25 @@ const Work = () => {
           ■ Work Experience
         </div>
         {/** work content */}
-        <ul className="section__content mt-5">
+        <ul className="section__content mt-4">
           {WorkList.map((item, index) => (
-            <li key={index} className="flex flex-col text-right mt-5">
+            <li key={index} className="flex flex-col text-right mt-6">
               <div className="flex flex-row-reverse gap-3">
-                <div className="flex text-4xl font-medium">{item.title}</div>
-                <div className="flex gap-1 items-end font-medium">
+                <div className="relative flex text-4xl font-medium font-secondary cursor-pointer">
+                  <span onClick={openModal}>{item.title}</span>
+                  <span className="absolute -bottom-1 right-0 w-0 hover:w-full transition-all h-1 bg-yellow-400"></span>
+                </div>
+                <div className="flex gap-1 items-end font-normal">
                   <span>{item.period}</span>
-                  <span>/</span>
+                  {/* <span>/</span>
                   <span>{item.team}</span>
                   <span>/</span>
-                  <span>{item.position}</span>
+                  <span>{item.position}</span> */}
                 </div>
               </div>
-              <div className="flex gap-1 justify-end mt-2">
+              {/* <div className="flex gap-1 justify-end mt-3">
                 <span>{item.role}</span>
-              </div>
+              </div> */}
             </li>
             // <WorkItem
             //   key={index}
@@ -41,6 +50,8 @@ const Work = () => {
         </ul>
       </div>
       {/** </div> */}
+
+      {/* <WorkModal isOpen={isModalOpen} closeModal={closeModal} /> */}
     </section>
   );
 };

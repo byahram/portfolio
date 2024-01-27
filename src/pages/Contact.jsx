@@ -57,7 +57,7 @@ const Contact = () => {
 
         {/* copyright */}
         <div className="pt-3">
-          COPYRIGHT 2023. Ahram Kim. All rights reserved.
+          COPYRIGHT 2024. Ahram Kim. All rights reserved.
         </div>
       </div>
     </section>

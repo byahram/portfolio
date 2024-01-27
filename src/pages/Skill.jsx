@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react"; // eslint-disable-line no-unused-vars
-import { TabMenu, SkillItems } from "../utils/SkillsList";
+import { TabMenu, SkillItems } from "../utils/AboutUtils";
 
 const Skills = () => {
   const [activeTab, setActiveTab] = useState(1);

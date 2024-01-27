@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"; // eslint-disable-line no-unused-vars
 import { Link } from "react-router-dom";
-import { NavList } from "../utils/navList";
+import { NavList } from "../utils/NavList";
 
 const MobileNav = () => {
   return (

@@ -1,7 +1,7 @@
 export const WorkList = [
   {
     title: "(주)씨티케이",
-    period: "2022.11 ~ 재직중",
+    period: "2022.11 ~ Current",
     team: "클립 ICT팀",
     position: "사원",
     role: "Front-end Developer",
