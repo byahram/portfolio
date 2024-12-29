@@ -126,7 +126,23 @@ export const experienceList = [
       from: "2024.03",
       to: "",
     },
-    projects: [{}, {}],
+    projects: [
+      {
+        projId: 0,
+        title: "Project A",
+        description: "A web application for managing user data and analytics.",
+        technologies: ["Vue.js", "Vuetify", "Vuex"],
+        link: "https://projectA.com",
+      },
+      {
+        projId: 1,
+        title: "Project B",
+        description:
+          "E-commerce platform for a local business, integrating payment gateway.",
+        technologies: ["Nuxt.js", "Stripe API", "Tailwind CSS"],
+        link: "https://projectB.com",
+      },
+    ],
   },
   {
     id: 1,
@@ -140,7 +156,23 @@ export const experienceList = [
       from: "2022.11",
       to: "2024.02",
     },
-    projects: [{}, {}],
+    projects: [
+      {
+        projId: 0,
+        title: "Project C",
+        description: "A corporate website using PHP and Laravel.",
+        technologies: ["PHP", "Laravel", "Bootstrap"],
+        link: "https://projectC.com",
+      },
+      {
+        projId: 1,
+        title: "Project D",
+        description:
+          "Internal tool for project management and task assignments.",
+        technologies: ["Laravel", "MySQL", "jQuery"],
+        link: "https://projectD.com",
+      },
+    ],
   },
   {
     id: 0,
@@ -154,7 +186,23 @@ export const experienceList = [
       from: "2024.03",
       to: "~",
     },
-    projects: [{}, {}],
+    projects: [
+      {
+        projId: 0,
+        title: "Project E",
+        description:
+          "An Android app for fitness tracking with data syncing features.",
+        technologies: ["Java", "Android Studio", "Firebase"],
+        link: "https://projectE.com",
+      },
+      {
+        projId: 1,
+        title: "Project F",
+        description: "AR-based game developed using Unity for Android.",
+        technologies: ["Unity", "C#", "Vuforia"],
+        link: "https://projectF.com",
+      },
+    ],
   },
 ];
 
