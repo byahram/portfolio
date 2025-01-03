@@ -9,54 +9,12 @@ export const navList = {
 
 // Home - Gallery List
 export const galleryList = [
-  {
-    id: 1,
-    alt: "몽골 사원에서",
-    src: "/images/mongol.jpg",
-    sizes: "(max-width: 768px) 213px, 33vw",
-    imgClass: "rounded-lg object-cover",
-    divClass: "relative h-40",
-  },
-  {
-    id: 2,
-    alt: "버들이랑",
-    src: "/images/spring.jpg",
-    sizes: "(max-width: 768px) 213px, 33vw",
-    imgClass: "rounded-lg object-cover sm:object-top sm:object-center",
-    divClass: "relative sm:row-span-2 row-span-1",
-  },
-  {
-    id: 3,
-    alt: "홍콩 해변가",
-    src: "/images/hongkong2.jpg",
-    sizes: "(max-width: 768px) 213px, 33vw",
-    imgClass: "rounded-lg object-cover",
-    divClass: "relative",
-  },
-  {
-    id: 4,
-    alt: "몽골에서 푸르공 타고",
-    src: "/images/mongol2.jpg",
-    sizes: "(max-width: 768px) 213px, 33vw",
-    imgClass: "rounded-lg object-cover sm:object-center",
-    divClass: "relative row-span-2",
-  },
-  {
-    id: 5,
-    alt: "한라산 등산",
-    src: "/images/jeju.jpg",
-    sizes: "(max-width: 768px) 213px, 33vw",
-    imgClass: "rounded-lg object-cover",
-    divClass: "relative row-span-2",
-  },
-  {
-    id: 6,
-    alt: "라스베가스 그랜드캐년",
-    src: "/images/lv.jpg",
-    sizes: "(max-width: 768px) 213px, 33vw",
-    imgClass: "rounded-lg object-cover",
-    divClass: "relative h-40",
-  },
+  { id: 1, src: "/images/mongol.jpg", alt: "몽골 사원에서" },
+  { id: 2, src: "/images/spring.jpg", alt: "버들이랑" },
+  { id: 3, src: "/images/hongkong2.jpg", alt: "홍콩 해변가" },
+  { id: 4, src: "/images/mongol2.jpg", alt: "몽골에서 푸르공 타고" },
+  { id: 5, src: "/images/jeju.jpg", alt: "한라산 등산" },
+  { id: 6, src: "/images/lv.jpg", alt: "라스베가스 그랜드캐년" },
 ];
 
 // About - Profile

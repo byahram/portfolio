@@ -24,15 +24,31 @@ export default function Home() {
 
       {/* gallery */}
       <div className="gallery grid grid-cols-2 grid-rows-4 sm:grid-rows-3 sm:grid-cols-3 gap-4 my-8">
-        {galleryList.map((item, index) => (
-          <div className={`${item.divClass}`} key={index}>
+        {galleryList.map((item) => (
+          <div
+            key={item.id}
+            className={`relative ${
+              {
+                1: "h-40",
+                2: "sm:row-span-2 row-span-1",
+                4: "row-span-2",
+                5: "row-span-2",
+                6: "h-40",
+              }[item.id] || ""
+            }`}
+          >
             <Image
               onClick={() => setSelectedId(item.id)}
-              alt={`${item.alt}`}
-              src={`${item.src}`}
+              alt={item.alt}
+              src={item.src}
               fill
-              sizes={`${item.sizes}`}
-              className={`grayscale transition duration-300 hover:grayscale-0 ${item.imgClass}`}
+              sizes="(max-width: 768px) 213px, 33vw"
+              className={`grayscale transition duration-300 hover:grayscale-0 rounded-lg object-cover ${
+                {
+                  2: "sm:object-top sm:object-center",
+                  4: "sm:object-center",
+                }[item.id] || ""
+              }`}
             />
           </div>
         ))}
@@ -63,7 +79,7 @@ export default function Home() {
                 className="rounded-md"
               />
               <button
-                className="absolute top-4 right-4 bg-white hover:bg-black text-black hover:text-white w-6 h-6 border-black border-2 rounded-full"
+                className="absolute top-4 right-4 bg-white hover:bg-black text-black hover:text-white w-6 h-6 border-black border-1 rounded-full"
                 onClick={() => setSelectedId(null)}
               >
                 <MdOutlineClose
