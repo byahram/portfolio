@@ -4,16 +4,16 @@ export const navList = {
   "/about": { name: "about" },
   "/work": { name: "work" },
   "/project": { name: "project" },
-  "/contact": { name: "contact" },
+  "/voice": { name: "voice" },
 };
 
 // Home - Gallery List
 export const galleryList = [
-  { id: 1, src: "/images/mongol.jpg", alt: "몽골 사원에서" },
-  { id: 2, src: "/images/spring.jpg", alt: "버들이랑" },
-  { id: 3, src: "/images/hongkong2.jpg", alt: "홍콩 해변가" },
-  { id: 4, src: "/images/mongol2.jpg", alt: "몽골에서 푸르공 타고" },
-  { id: 5, src: "/images/jeju.jpg", alt: "한라산 등산" },
+  { id: 1, src: "/images/mongol.jpg", alt: "몽골" },
+  { id: 2, src: "/images/spring.jpg", alt: "영종도" },
+  { id: 3, src: "/images/hongkong2.jpg", alt: "홍콩 " },
+  { id: 4, src: "/images/mongol2.jpg", alt: "몽골" },
+  { id: 5, src: "/images/jeju.jpg", alt: "한라산" },
   { id: 6, src: "/images/lv.jpg", alt: "라스베가스 그랜드캐년" },
 ];
 
