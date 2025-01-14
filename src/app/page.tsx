@@ -25,9 +25,7 @@ export default function Home() {
 
   const fetchData = async () => {
     try {
-      const res = await fetch("/api/notion", {
-        method: "GET",
-      });
+      const res = await fetch("/api/notion", { method: "GET" });
 
       if (!res.ok) {
         throw new Error(`HTTP error! Status: ${res.status}`);

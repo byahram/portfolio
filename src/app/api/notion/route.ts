@@ -1,3 +1,4 @@
+// import notionAxios from "@/lib/axios";
 import notionClient from "@/lib/notionhq";
 import { NextResponse } from "next/server";
 
@@ -8,11 +9,18 @@ if (!NOTION_DATABASE_ID) {
 
 export async function GET() {
   try {
+    // notionClient
     const response = await notionClient.databases.query({
       database_id: NOTION_DATABASE_ID,
     });
-
     return NextResponse.json(response.results);
+
+    // notionAxios
+    // const response = await notionAxios.post(
+    //   `/databases/${NOTION_DATABASE_ID}/query`,
+    //   {}
+    // );
+    // return NextResponse.json(response.data.results);
   } catch (error) {
     const errorMessage =
       error instanceof Error
