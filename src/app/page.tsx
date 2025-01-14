@@ -3,19 +3,65 @@
 import { galleryList } from "@/store/store";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdOutlineClose } from "react-icons/md";
 
+interface NotionItem {
+  id: string;
+  properties: {
+    Name: {
+      title: { plain_text: string }[];
+    };
+  };
+}
+
 export default function Home() {
+  const [data, setData] = useState<NotionItem[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
   const [selectedId, setSelectedId] = useState<null | number>(null);
 
   const selectedItem = galleryList.find((item) => item.id === selectedId);
+
+  const fetchData = async () => {
+    try {
+      const res = await fetch("/api/notion", {
+        method: "GET",
+      });
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! Status: ${res.status}`);
+      }
+
+      const json = await res.json();
+      setData(json);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setError("Failed to fetch data. Please try again later.");
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <section id="home" className="my-10 md:my-16">
       <h1 className="mb-8 text-2xl font-medium tracking-tighter">
         Hello, I am Ahram Kim 👋
       </h1>
+
+      <ul>
+        {data.map((item) => (
+          <li key={item.id}>
+            {item.properties.Name?.title[0]?.plain_text || "No Name"}
+          </li>
+        ))}
+      </ul>
 
       {/* introduction */}
       <div className="introduction">
