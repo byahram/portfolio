@@ -1,26 +1,19 @@
-// import notionAxios from "@/lib/axios";
 import notionClient from "@/lib/notionhq";
 import { NextResponse } from "next/server";
 
-const NOTION_DATABASE_ID = process.env.NOTION_DATABASE_ID as string;
-if (!NOTION_DATABASE_ID) {
-  throw new Error("Missing NOTION_DATABASE_ID in environment variables.");
+const NOTION_EXPERIENCE_DB_ID = process.env.NOTION_EXPERIENCE_DB_ID as string;
+if (!NOTION_EXPERIENCE_DB_ID) {
+  throw new Error("Missing NOTION_EXPERIENCE_DB_ID in environment variables.");
 }
 
 export async function GET() {
   try {
     // notionClient
     const response = await notionClient.databases.query({
-      database_id: NOTION_DATABASE_ID,
+      database_id: NOTION_EXPERIENCE_DB_ID,
     });
+    // console.log("[notionClient] response.results = ", response.results);
     return NextResponse.json(response.results);
-
-    // notionAxios
-    // const response = await notionAxios.post(
-    //   `/databases/${NOTION_DATABASE_ID}/query`,
-    //   {}
-    // );
-    // return NextResponse.json(response.data.results);
   } catch (error) {
     const errorMessage =
       error instanceof Error
