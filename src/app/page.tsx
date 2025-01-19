@@ -6,46 +6,10 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { MdOutlineClose } from "react-icons/md";
 
-interface NotionItem {
-  id: string;
-  properties: {
-    Name: {
-      title: { plain_text: string }[];
-    };
-  };
-}
-
 export default function Home() {
-  const [data, setData] = useState<NotionItem[]>([]);
-  const [error, setError] = useState<string | null>(null);
-
   const [selectedId, setSelectedId] = useState<null | number>(null);
 
   const selectedItem = galleryList.find((item) => item.id === selectedId);
-
-  const fetchData = async () => {
-    try {
-      const res = await fetch("/api/notion", { method: "GET" });
-
-      if (!res.ok) {
-        throw new Error(`HTTP error! Status: ${res.status}`);
-      }
-
-      const json = await res.json();
-      setData(json);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      setError("Failed to fetch data. Please try again later.");
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
 
   return (
     <section id="home" className="my-10 md:my-16">
@@ -53,17 +17,24 @@ export default function Home() {
         Hello, I am Ahram Kim 👋
       </h1>
 
-      <ul>
-        {data.map((item) => (
-          <li key={item.id}>
-            {item.properties.Name?.title[0]?.plain_text || "No Name"}
-          </li>
-        ))}
-      </ul>
-
       {/* introduction */}
-      <div className="introduction">
-        안녕하세요. 3년차 프론트엔드 김아람입니다.
+      <div className="introduction space-y-4 leading-relaxed text-gray-700 dark:text-gray-300 text-sm sm:text-base">
+        <p>
+          안녕하세요. 항상 ‘왜?’를 고민하며 사용자 가치를 최우선으로 생각하는
+          3년 차 프론트엔드 개발자 김아람입니다.
+        </p>
+        <p>
+          웹/앱 서비스와 플랫폼 개발 경험을 바탕으로 Vue.js와 Nuxt.js를 활용해
+          직관적이고 효율적인 사용자 인터페이스를 구현해왔습니다. API 연동을
+          통해 비즈니스 로직을 설계하고, 검색 엔진 최적화(SEO) 전략을 수립 및
+          실행한 경험도 보유하고 있습니다.
+        </p>
+        <p>
+          현재는 React와 Next.js를 개인적으로 학습하며, 컴포넌트 재사용성과 웹
+          성능 최적화에 대한 깊이 있는 이해를 쌓아가고 있습니다. 끊임없이 배우고
+          성장하며, 더 나은 디지털 경험을 제공하는 개발자가 되기 위해 노력하고
+          있습니다.
+        </p>
       </div>
 
       {/* gallery */}
@@ -118,12 +89,12 @@ export default function Home() {
               <Image
                 src={selectedItem.src}
                 alt={selectedItem.alt}
-                width={500}
-                height={500}
+                width={350}
+                height={350}
                 className="rounded-md"
               />
               <button
-                className="absolute top-4 right-4 bg-white hover:bg-black text-black hover:text-white w-6 h-6 border-black border-1 rounded-full"
+                className="absolute top-4 right-4 bg-white hover:bg-black text-black hover:text-white w-6 h-6 border-black border-2 rounded-full"
                 onClick={() => setSelectedId(null)}
               >
                 <MdOutlineClose
