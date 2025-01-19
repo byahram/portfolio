@@ -3,7 +3,7 @@
 import { galleryList } from "@/store/store";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { MdOutlineClose } from "react-icons/md";
 
 export default function Home() {
