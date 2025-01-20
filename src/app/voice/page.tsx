@@ -1,4 +1,4 @@
-import Giscus from "@/components/Giscus";
+import Giscus from "@/components/voice/Giscus";
 
 export default function Voice() {
   return (
