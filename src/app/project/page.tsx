@@ -1,32 +1,14 @@
 "use client";
 
+import ProjectModal from "@/components/project/DetailModal";
+import ProjectCard from "@/components/project/ProjectCard";
+import SkeletonLoading from "@/components/project/ProjectSkeleton";
+import TechStackFilter from "@/components/project/TechStackFilter";
 import { techStackOptions } from "@/store/store";
+import { ProjectData, NotionProjectProps } from "@/types/interface";
 import { useEffect, useState } from "react";
 
-// Define types for raw data
-// interface NotionItem {
-//   id: string;
-//   properties: {
-//     Name: {
-//       title: { plain_text: string }[];
-//     };
-//   };
-// }
-interface InterfaceNotionData {
-  description: { rich_text: { plain_text: string }[] };
-  tech: { multi_select: { name: string }[] };
-  title: { rich_text: { plain_text: string }[] };
-  projectId: { title: { plain_text: string }[] };
-}
-
-type ProcessedData = {
-  description: string;
-  tech: string[];
-  title: string;
-  projectId: string;
-};
-
-const processNotionData = (rawData: InterfaceNotionData[]): ProcessedData[] => {
+const processProjectData = (rawData: NotionProjectProps[]): ProjectData[] => {
   return rawData.map((item) => {
     const { description, tech, title, projectId } = item;
 
@@ -42,9 +24,14 @@ const processNotionData = (rawData: InterfaceNotionData[]): ProcessedData[] => {
 };
 
 export default function Project() {
-  const [projects, setProjects] = useState<ProcessedData[]>([]);
+  const [projects, setProjects] = useState<ProjectData[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedStack, setSelectedStack] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<ProjectData | null>(
+    null
+  );
 
   const fetchData = async () => {
     try {
@@ -53,14 +40,16 @@ export default function Project() {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      const data: { properties: InterfaceNotionData }[] = await response.json();
+      const data: { properties: NotionProjectProps }[] = await response.json();
       const propertiesOnly = data.map((item) => item.properties);
-      const processedData = processNotionData(propertiesOnly);
+      const processedData = processProjectData(propertiesOnly);
       console.log(" processedData :: ", processedData);
       setProjects(processedData);
     } catch (error) {
       console.error("Error fetching data:", error);
       setError("Failed to fetch data. Please try again later.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -72,6 +61,16 @@ export default function Project() {
     return <div>Error: {error}</div>;
   }
 
+  const openModal = (project: ProjectData) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedProject(null);
+  };
+
   const filteredProjects = selectedStack
     ? projects
         .filter((project) => project.tech.includes(selectedStack))
@@ -81,57 +80,35 @@ export default function Project() {
   return (
     <section id="about" className="my-10 md:my-16">
       <h1 className="mb-8 text-2xl font-medium tracking-tighter">Project</h1>
-      {/* <p>페이지 준비중입니다.</p> */}
 
-      {/* Tech Stack Buttons */}
-      <div className="mb-8 flex flex-wrap gap-2">
-        <button
-          className={`px-4 py-1 text-base rounded border transition-all ${
-            selectedStack === ""
-              ? "bg-neutral-600 text-light border-white dark:bg-neutral-600 dark:border-neutral-400 dark:text-light"
-              : "bg-white dark:bg-light dark:border-neutral-600 dark:text-dark"
-          }`}
-          onClick={() => setSelectedStack("")}
-        >
-          All
-        </button>
-        {techStackOptions.map((tech) => (
-          <button
-            key={tech}
-            className={`px-4 py-1 text-base rounded border transition-all ${
-              selectedStack === tech
-                ? "bg-neutral-600 text-light border-white dark:bg-neutral-600 dark:border-neutral-400 dark:text-light"
-                : "bg-white dark:bg-light dark:border-neutral-600 dark:text-dark"
-            }`}
-            onClick={() => setSelectedStack(tech)}
-          >
-            {tech}
-          </button>
-        ))}
-      </div>
+      {isLoading ? (
+        <SkeletonLoading />
+      ) : (
+        <>
+          {/* Tech Stack Buttons */}
+          <TechStackFilter
+            techStackOptions={techStackOptions}
+            selectedStack={selectedStack}
+            setSelectedStack={setSelectedStack}
+          />
 
-      {/* Projects List */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {filteredProjects.map((project) => (
-          <div
-            key={project.projectId}
-            className="p-4 border rounded-lg shadow hover:shadow-lg transition"
-          >
-            <h2 className="text-xl font-semibold">{project.title}</h2>
-            <p className="text-sm text-gray-600">{project.description}</p>
-            <div className="mt-2 flex flex-wrap gap-2">
-              {project.tech.map((tech) => (
-                <span
-                  key={tech}
-                  className="px-2 py-1 text-xs bg-gray-100 border rounded"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
+          {/* Projects List */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {filteredProjects.map((project) => (
+              <ProjectCard
+                key={project.projectId}
+                project={project}
+                openModal={openModal}
+              />
+            ))}
           </div>
-        ))}
-      </div>
+        </>
+      )}
+
+      {/* 모달 */}
+      {isModalOpen && selectedProject && (
+        <ProjectModal project={selectedProject} closeModal={closeModal} />
+      )}
     </section>
   );
 }
