@@ -1,5 +1,6 @@
 "use client";
 
+import ErrorMessage from "@/components/common/ErrorMessage";
 import ProjectModal from "@/components/project/DetailModal";
 import ProjectCard from "@/components/project/ProjectCard";
 import SkeletonLoading from "@/components/project/ProjectSkeleton";
@@ -58,7 +59,7 @@ export default function Project() {
   }, []);
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <ErrorMessage message={error} />;
   }
 
   const openModal = (project: ProjectData) => {
