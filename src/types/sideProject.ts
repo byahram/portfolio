@@ -1,5 +1,5 @@
 // [Side Project]  Notion 원시 데이터 구조
-export interface NotionSideProjectProps {
+export interface NotionSideProjProps {
   projectId: { title: { plain_text: string }[] };
   title: { rich_text: { plain_text: string }[] };
   description: { rich_text: { plain_text: string }[] };
@@ -15,8 +15,8 @@ export interface SideProjectData {
 }
 
 // [Side Project] 데이터 처리 함수
-export const processSideProjectData = (
-  rawData: NotionSideProjectProps[]
+export const processSideProjData = (
+  rawData: NotionSideProjProps[]
 ): SideProjectData[] => {
   return rawData.map((item) => {
     const { description, tech, title, projectId } = item;
