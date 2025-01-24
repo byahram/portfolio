@@ -1,13 +1,13 @@
-// Nav List
+// [Common] Nav List
 export const navList = {
   "/": { name: "home" },
   "/about": { name: "about" },
-  "/work": { name: "work" },
+  "/career": { name: "career" },
   "/project": { name: "project" },
   "/voice": { name: "voice" },
 };
 
-// Home - Gallery List
+// [Home] Gallery List
 export const galleryList = [
   { id: 1, src: "/images/mongol.jpg", alt: "몽골" },
   { id: 2, src: "/images/spring.jpg", alt: "영종도" },
@@ -17,7 +17,7 @@ export const galleryList = [
   { id: 6, src: "/images/lv.jpg", alt: "라스베가스 그랜드캐년" },
 ];
 
-// About - Profile
+// [About] Profile
 export const profile = {
   photo: "/images/profile.jpg",
   phone: "010-0000-0000",
@@ -27,7 +27,7 @@ export const profile = {
   location: "Seoul, South Korea",
 };
 
-// About - Education List
+// [About] Education List
 export const educationList = [
   {
     id: 3,
@@ -70,102 +70,8 @@ export const educationList = [
   // }
 ];
 
-// About - ExperienceList
-export const experienceList = [
-  {
-    id: 2,
-    company: "(주)원스인터랙티브",
-    team: "개발팀",
-    position: "대리",
-    role: "프론트엔드 개발자",
-    details: ["", "", ""],
-    skills: ["Vue.js", "Nuxt.js", "Php"],
-    duration: {
-      from: "2024.03",
-      to: "",
-    },
-    projects: [
-      {
-        projId: 0,
-        title: "Project A",
-        description: "A web application for managing user data and analytics.",
-        technologies: ["Vue.js", "Vuetify", "Vuex"],
-        link: "https://projectA.com",
-      },
-      {
-        projId: 1,
-        title: "Project B",
-        description:
-          "E-commerce platform for a local business, integrating payment gateway.",
-        technologies: ["Nuxt.js", "Stripe API", "Tailwind CSS"],
-        link: "https://projectB.com",
-      },
-    ],
-  },
-  {
-    id: 1,
-    company: "(주)씨티케이",
-    team: "클립 ICT팀",
-    position: "사원",
-    role: "프론트엔드 개발자",
-    details: ["", "", ""],
-    skills: ["Php", "Laravel", "Bootstrap"],
-    duration: {
-      from: "2022.11",
-      to: "2024.02",
-    },
-    projects: [
-      {
-        projId: 0,
-        title: "Project C",
-        description: "A corporate website using PHP and Laravel.",
-        technologies: ["PHP", "Laravel", "Bootstrap"],
-        link: "https://projectC.com",
-      },
-      {
-        projId: 1,
-        title: "Project D",
-        description:
-          "Internal tool for project management and task assignments.",
-        technologies: ["Laravel", "MySQL", "jQuery"],
-        link: "https://projectD.com",
-      },
-    ],
-  },
-  {
-    id: 0,
-    company: "(주)스마트컨버전스",
-    team: "R&D 연구개발팀",
-    position: "연구원",
-    role: "안드로이드 앱 개발자",
-    details: ["", "", ""],
-    skills: ["Java", "Android Studio", "Unity", "C++"],
-    duration: {
-      from: "2024.03",
-      to: "~",
-    },
-    projects: [
-      {
-        projId: 0,
-        title: "Project E",
-        description:
-          "An Android app for fitness tracking with data syncing features.",
-        technologies: ["Java", "Android Studio", "Firebase"],
-        link: "https://projectE.com",
-      },
-      {
-        projId: 1,
-        title: "Project F",
-        description: "AR-based game developed using Unity for Android.",
-        technologies: ["Unity", "C#", "Vuforia"],
-        link: "https://projectF.com",
-      },
-    ],
-  },
-];
-
-// About - Skill List
-export const skillList = {
+// [About] Skills List
+export const skillsList = {
   technical: {
     frontend: [
       "HTML",
@@ -192,7 +98,7 @@ export const skillList = {
   ],
 };
 
-// About - Certification List
+// [About] Certification List
 export const certificationList = [
   {
     id: 6,
@@ -232,50 +138,17 @@ export const certificationList = [
   // },
 ];
 
-// Languages.ts
-export const Languages = [
-  "Korean (Native)",
-  "English (Fluent)",
-  "Japanese (Intermediate)",
-];
-
-// Project - Project List
-export const projectsList = [
-  {
-    id: 1,
-    title: "Project 1",
-    description: "Description of project 1",
-    techStack: ["React", "Tailwind", "JavaScript"],
-  },
-  {
-    id: 2,
-    title: "Project 2",
-    description: "Description of project 2",
-    techStack: ["Next.js", "Tailwind", "TypeScript"],
-  },
-  {
-    id: 3,
-    title: "Project 3",
-    description: "Description of project 3",
-    techStack: ["React", "CSS", "JavaScript"],
-  },
-  {
-    id: 4,
-    title: "Project 4",
-    description: "Description of project 4",
-    techStack: ["Node.js", "Express", "MongoDB"],
-  },
-];
-
-// Project - Tech Stack Options
+// [Project] Tech Stack Options
 export const techStackOptions = [
+  "HTML/CSS",
+  "JavaScript",
   "React",
   "Next.js",
-  "Tailwind",
-  "JavaScript",
+  "Vue",
+  "Nuxt.js",
+  "TailwindCss",
   "TypeScript",
   "Node.js",
   "Express",
   "MongoDB",
-  "CSS",
 ];
