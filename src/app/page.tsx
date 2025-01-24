@@ -86,13 +86,16 @@ export default function Home() {
               exit={{ scale: 0.8 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <Image
-                src={selectedItem.src}
-                alt={selectedItem.alt}
-                width={350}
-                height={350}
-                className="rounded-md"
-              />
+              <div className="max-w-xl w-auto max-h-[80vh] overflow-hidden">
+                <Image
+                  src={selectedItem.src}
+                  alt={selectedItem.alt}
+                  width={0}
+                  height={0}
+                  sizes="(max-width: 768px) 90vw, 80vw"
+                  className="rounded-md object-contain w-full h-full"
+                />
+              </div>
               <button
                 className="absolute top-4 right-4 bg-white hover:bg-black text-black hover:text-white w-6 h-6 border-black border-2 rounded-full"
                 onClick={() => setSelectedId(null)}
