@@ -24,7 +24,7 @@ export default function RootLayout({
         className={`relative w-full max-w-full h-full min-h-[100vh] text-dark bg-light dark:text-light dark:bg-dark ${inter.className} antialiased`}
       >
         <ThemeProvider>
-          <div className="wrap relative max-w-2xl mx-auto px-7 py-9 md:py-14">
+          <div className="wrap relative max-w-3xl mx-auto px-7 py-9 md:py-14">
             <Header />
             <main id="main" className="relative">
               {children}
