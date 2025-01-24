@@ -1,3 +1,4 @@
+import Skeleton from "@/components/common/Skeleton";
 interface EducationItem {
   college: string;
   degree: string;
@@ -11,33 +12,68 @@ interface EducationItem {
 
 interface EducationProp {
   data: EducationItem[];
+  isLoading: boolean;
 }
 
-const Education = ({ data }: EducationProp) => {
+const EducationSkeleton = () => {
   return (
-    <article className="education mt-20">
-      <h2 className="mb-8 text-xl font-medium tracking-tighter">Education</h2>
+    <>
+      <h2 className="mb-8 text-xl font-medium tracking-tighter">
+        <Skeleton className="w-32 h-6" />
+      </h2>
       <ul>
-        {data.map((item, index) => (
+        {[...Array(3)].map((_, index) => (
           <li
             key={index}
-            className="[&:not(:first-child)]:mt-6 flex items-start justify-start gap-12"
+            className="[&:not(:first-child)]:mt-6 flex items-start justify-start gap-5 sm:gap-12"
           >
-            <div className="flex items-center flex-nowrap">
-              <div className="relative w-1.5 h-1.5 bg-dark dark:bg-light ml-3 mr-5 rounded-full"></div>
-              <p className="text-sm text-gray-700 dark:text-gray-300">
-                {item.duration.from} ~ {item.duration.to}
-              </p>
+            <div className="flex items-center flex-nowrap w-[40%] sm:w-[20%]">
+              <Skeleton className="w-2 h-2 rounded-full" />
+              <Skeleton className="w-32 h-4 ml-5" />
             </div>
             <div className="flex flex-col">
-              <p className="font-semibold">{item.college}</p>
-              <p className="text-gray-700 dark:text-gray-300 mt-0.5">
-                - {item.degree} in {item.major} ({item.status})
-              </p>
+              <Skeleton className="w-40 sm:w-80 h-8" />
             </div>
           </li>
         ))}
       </ul>
+    </>
+  );
+};
+
+const Education = ({ data, isLoading }: EducationProp) => {
+  return (
+    <article className="education">
+      {isLoading ? (
+        <EducationSkeleton />
+      ) : (
+        <>
+          <h2 className="mb-8 text-xl font-medium tracking-tighter">
+            Education
+          </h2>
+          <ul>
+            {data.map((item, index) => (
+              <li
+                key={index}
+                className="[&:not(:first-child)]:mt-6 flex items-start justify-start gap-5 sm:gap-12"
+              >
+                <div className="flex items-center flex-nowrap">
+                  <div className="relative w-1.5 h-1.5 bg-dark dark:bg-light ml-3 mr-5 rounded-full"></div>
+                  <p className="text-sm text-gray-700 dark:text-gray-300 sm:max-w-[120px] sm:break-words">
+                    {item.duration.from} ~ {item.duration.to}
+                  </p>
+                </div>
+                <div className="flex flex-col">
+                  <p className="font-semibold">{item.college}</p>
+                  <p className="text-gray-700 dark:text-gray-300 mt-0.5">
+                    - {item.degree} in {item.major} ({item.status})
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
     </article>
   );
 };

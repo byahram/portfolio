@@ -1,0 +1,100 @@
+import BadgeText from "@/components/BadgeText";
+import ListDot from "@/components/ListDot";
+import { CareerData } from "@/types/interface";
+import Link from "next/link";
+import Skeleton from "@/components/common/Skeleton";
+
+interface CareerProp {
+  data: CareerData[];
+  isLoading: boolean;
+}
+
+const CareerSkeleton = () => {
+  return (
+    <>
+      <h2 className="mb-8 text-xl font-medium tracking-tighter">
+        <Skeleton className="w-32 h-6" />
+      </h2>
+      <ul>
+        {Array.from({ length: 3 }).map((_, index) => (
+          <li
+            key={index}
+            className="[&:not(:first-child)]:mt-6 flex items-start justify-start gap-5 md:gap-12"
+          >
+            <div className="flex items-center flex-nowrap md:w-[40%]">
+              <Skeleton className="w-2 h-2 rounded-full" />
+              <Skeleton className="w-32 h-4 ml-5" />
+            </div>
+            <div className="flex flex-col">
+              <Skeleton className="w-48 sm:w-80 h-12" />
+            </div>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+};
+
+const Career = ({ data, isLoading }: CareerProp) => {
+  const formatDate = (dateString: string | null): string => {
+    const [year, month] = dateString ? dateString.split("-") : "present";
+    return `${year}.${month}`;
+  };
+
+  return (
+    <article className="career">
+      {isLoading ? (
+        <CareerSkeleton />
+      ) : (
+        <>
+          <div className="flex justify-between">
+            <h2 className="mb-8 text-xl font-medium tracking-tighter">
+              Work Experience
+            </h2>
+            <Link
+              href="/career"
+              className="mb-8 text-sm text-gray-700 dark:text-gray-300 cursor-pointer hover:text-blue-700 transition duration-300 flex items-center gap-1"
+            >
+              더보기
+              <span className="opacity-0 hover:opacity-100 transition duration-300">
+                +
+              </span>
+            </Link>
+          </div>
+          <ul>
+            {data.map((item, index) => (
+              <li
+                key={index}
+                className="[&:not(:first-child)]:mt-6 flex flex-col md:flex-row items-start justify-start gap-3 md:gap-12"
+              >
+                <div className="flex items-center flex-nowrap w-full md:w-[40%]">
+                  <ListDot />
+                  <p className="font-semibold">{item.company}</p>
+                </div>
+                <div className="flex flex-col md:w-full ml-16 md:ml-0">
+                  <p className="text-gray-700 dark:text-gray-300">
+                    <span className="inline-block md:hidden">
+                      -&nbsp;재직기간:
+                    </span>
+                    &nbsp;{formatDate(item.employmentFrom)} ~{" "}
+                    {formatDate(item.employmentTo)}
+                  </p>
+                  <p className="mt-0.5">
+                    - {item.role} / {item.team}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {item.techs.map((tech, index) => (
+                      <BadgeText key={index}>{tech}</BadgeText>
+                    ))}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+    </article>
+  );
+};
+
+export default Career;
