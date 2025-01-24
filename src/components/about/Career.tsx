@@ -1,8 +1,9 @@
 import BadgeText from "@/components/BadgeText";
 import ListDot from "@/components/ListDot";
-import { CareerData } from "@/types/interface";
+import { CareerData } from "@/types/career";
 import Link from "next/link";
 import Skeleton from "@/components/common/Skeleton";
+import { formatDate } from "@/utils/common";
 
 interface CareerProp {
   data: CareerData[];
@@ -36,11 +37,6 @@ const CareerSkeleton = () => {
 };
 
 const Career = ({ data, isLoading }: CareerProp) => {
-  const formatDate = (dateString: string | null): string => {
-    const [year, month] = dateString ? dateString.split("-") : "present";
-    return `${year}.${month}`;
-  };
-
   return (
     <article className="career">
       {isLoading ? (
