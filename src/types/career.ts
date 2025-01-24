@@ -18,6 +18,7 @@ export interface NotionCareerProps {
   tenure: { rich_text: { plain_text: string }[] };
   status: { status: { name: string } };
 }
+
 // [Career] 가공된 데이터
 export interface CareerData {
   careerId: string;
@@ -71,6 +72,77 @@ export const processCareerData = (
       employmentTo: employment_period?.date?.end || null,
       tenure: tenure.rich_text.map((text) => text.plain_text).join(""),
       status: status.status.name,
+    };
+  });
+};
+
+// [Career Project] Notion 원시 데이터 구조
+export interface NotionCareerProjectProps {
+  projectId: { title: { plain_text: string }[] };
+  careerId: { relation: { id: string }[] };
+  title: { rich_text: { plain_text: string }[] };
+  team_composition: { rich_text: { plain_text: string }[] };
+  contribution: { rich_text: { plain_text: string }[] };
+  tech: { multi_select: { name: string }[] };
+  responsibilities: { multi_select: { name: string }[] };
+  achievements: { multi_select: { name: string }[] };
+  from: { rich_text: { plain_text: string }[] };
+  to: { rich_text: { plain_text: string }[] };
+  reference: { rich_text: { plain_text: string }[] };
+}
+
+// [Career Project] 가공된 데이터
+export interface CareerProjectData {
+  projectId: string;
+  careerId: string[];
+  title: string;
+  team_composition: string;
+  contribution: string;
+  tech: string[];
+  responsibilities: string[];
+  achievements: string[];
+  from: string;
+  to: string | null;
+  reference: string | null;
+}
+
+// [Career Project] 데이터 처리 함수
+export const processCareerProjectData = (
+  rawData: NotionCareerProjectProps[]
+): CareerProjectData[] => {
+  return rawData.map((item) => {
+    const {
+      projectId,
+      careerId,
+      title,
+      team_composition,
+      contribution,
+      tech,
+      responsibilities,
+      achievements,
+      from,
+      to,
+      reference,
+    } = item;
+
+    return {
+      projectId: projectId.title.map((text) => text.plain_text).join(""),
+      careerId: careerId.relation.map((rel) => rel.id),
+      title: title.rich_text.map((text) => text.plain_text).join(""),
+      team_composition: team_composition.rich_text
+        .map((text) => text.plain_text)
+        .join(""),
+      contribution: contribution.rich_text
+        .map((text) => text.plain_text)
+        .join(""),
+      tech: tech.multi_select.map((item) => item.name),
+      responsibilities: responsibilities.multi_select.map(
+        (techItem) => techItem.name
+      ),
+      achievements: achievements.multi_select.map((techItem) => techItem.name),
+      from: from.rich_text.map((text) => text.plain_text).join(""),
+      to: to.rich_text.map((text) => text.plain_text).join(""),
+      reference: reference.rich_text.map((text) => text.plain_text).join(""),
     };
   });
 };
