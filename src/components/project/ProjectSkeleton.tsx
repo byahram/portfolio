@@ -5,10 +5,10 @@ export default function ProjectSkeleton() {
     <div>
       {/* Tech Stack Loading Skeleton */}
       <div className="mb-8 flex flex-wrap gap-2">
-        {Array.from({ length: 5 }).map((_, index) => (
+        {Array.from({ length: 8 }).map((_, index) => (
           <Skeleton
             key={index}
-            className="h-8 w-16 rounded bg-neutral-300 dark:bg-neutral-700"
+            className="h-8 w-20 rounded bg-neutral-300 dark:bg-neutral-700"
           />
         ))}
       </div>

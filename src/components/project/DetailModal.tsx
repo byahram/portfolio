@@ -1,10 +1,10 @@
 import Image from "next/image";
 import { MdOutlineClose } from "react-icons/md";
 import BadgeText from "@/components/BadgeText";
-import { ProjectData } from "@/types/interface";
+import { SideProjectData } from "@/types/sideProject";
 
 interface ProjectModalProps {
-  project: ProjectData;
+  project: SideProjectData;
   closeModal: () => void;
 }
 

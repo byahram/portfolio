@@ -6,33 +6,21 @@ import ProjectCard from "@/components/project/ProjectCard";
 import SkeletonLoading from "@/components/project/ProjectSkeleton";
 import TechStackFilter from "@/components/project/TechStackFilter";
 import { techStackOptions } from "@/store/store";
-import { ProjectData, NotionProjectProps } from "@/types/interface";
 import { useEffect, useState } from "react";
+import {
+  NotionSideProjectProps,
+  SideProjectData,
+  processSideProjectData,
+} from "@/types/sideProject";
 
-const processProjectData = (rawData: NotionProjectProps[]): ProjectData[] => {
-  return rawData.map((item) => {
-    const { description, tech, title, projectId } = item;
-
-    return {
-      description: description.rich_text
-        .map((text) => text.plain_text)
-        .join(""),
-      tech: tech.multi_select.map((techItem) => techItem.name),
-      title: title.rich_text.map((text) => text.plain_text).join(""),
-      projectId: projectId.title.map((text) => text.plain_text).join(""),
-    };
-  });
-};
-
-export default function Project() {
-  const [projects, setProjects] = useState<ProjectData[]>([]);
+export default function Projects() {
+  const [projects, setProjects] = useState<SideProjectData[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedStack, setSelectedStack] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedProject, setSelectedProject] = useState<ProjectData | null>(
-    null
-  );
+  const [selectedProject, setSelectedProject] =
+    useState<SideProjectData | null>(null);
 
   const fetchData = async () => {
     try {
@@ -41,9 +29,10 @@ export default function Project() {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      const data: { properties: NotionProjectProps }[] = await response.json();
+      const data: { properties: NotionSideProjectProps }[] =
+        await response.json();
       const propertiesOnly = data.map((item) => item.properties);
-      const processedData = processProjectData(propertiesOnly);
+      const processedData = processSideProjectData(propertiesOnly);
       console.log(" processedData :: ", processedData);
       setProjects(processedData);
     } catch (error) {
@@ -62,7 +51,7 @@ export default function Project() {
     return <ErrorMessage message={error} />;
   }
 
-  const openModal = (project: ProjectData) => {
+  const openModal = (project: SideProjectData) => {
     setSelectedProject(project);
     setIsModalOpen(true);
   };

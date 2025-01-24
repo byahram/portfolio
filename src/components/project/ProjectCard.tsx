@@ -1,10 +1,10 @@
 import BadgeText from "@/components/BadgeText";
-import { ProjectData } from "@/types/interface";
+import { SideProjectData } from "@/types/sideProject";
 import Image from "next/image";
 
 interface ProjectCardProps {
-  project: ProjectData;
-  openModal: (project: ProjectData) => void;
+  project: SideProjectData;
+  openModal: (project: SideProjectData) => void;
 }
 
 export default function ProjectCard({ project, openModal }: ProjectCardProps) {
