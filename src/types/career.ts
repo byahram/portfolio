@@ -1,7 +1,6 @@
 // [Career] Notion 원시 데이터 구조
 export interface NotionCareerProps {
   careerId: { title: { plain_text: string }[] };
-  projectId: { relation: { id: string }[] };
   company: { rich_text: { plain_text: string }[] };
   description: { rich_text: { plain_text: string }[] };
   team: { rich_text: { plain_text: string }[] };
@@ -22,7 +21,6 @@ export interface NotionCareerProps {
 // [Career] 가공된 데이터
 export interface CareerData {
   careerId: string;
-  projectId: string[];
   company: string;
   description: string;
   team: string;
@@ -36,14 +34,21 @@ export interface CareerData {
   status: string;
 }
 
+// [Career] API에서 반환되는 데이터 타입 정의
+export interface ApiResponse {
+  properties: CareerData | null;
+  id: string;
+}
+
 // [Career] 데이터 처리 함수
 export const processCareerData = (
   rawData: NotionCareerProps[]
 ): CareerData[] => {
+  if (!rawData) return [];
+
   return rawData.map((item) => {
     const {
       careerId,
-      projectId,
       company,
       description,
       team,
@@ -58,7 +63,6 @@ export const processCareerData = (
 
     return {
       careerId: careerId.title.map((text) => text.plain_text).join(""),
-      projectId: projectId.relation.map((rel) => rel.id),
       company: company.rich_text.map((text) => text.plain_text).join(""),
       description: description.rich_text
         .map((text) => text.plain_text)

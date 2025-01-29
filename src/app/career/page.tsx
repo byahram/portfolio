@@ -3,34 +3,36 @@
 import React, { useEffect, useState } from "react";
 import BadgeText from "@/components/BadgeText";
 import Line from "@/components/Line";
-import { CareerData, CareerProjectData } from "@/types/career";
+import { ApiResponse, CareerProjectData } from "@/types/career";
 import { fetchCareerData, fetchCareerProjectData } from "@/lib/apiList";
 import ErrorMessage from "@/components/common/ErrorMessage";
 
 export default function Experience() {
-  const [career, setCareer] = useState<CareerData[]>([]);
-  const [project, setProject] = useState<CareerProjectData[]>([]);
+  const [careers, setCareers] = useState<ApiResponse[]>([]);
+  const [careerProjects, setCareerProjects] = useState<CareerProjectData[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isLoadingCareer, setIsLoadingCareer] = useState(true);
   const [isLoadingProject, setIsLoadingProject] = useState(true);
+  const [openProject, setOpenProject] = useState<string | null>(null);
 
-  const [openProject, setOpenProject] = useState<{
-    careerId: string;
-    projectId: string;
-  } | null>(null);
-
-  const toggleProject = (careerId: string, projectId: string) => {
-    setOpenProject(
-      openProject?.careerId === careerId && openProject?.projectId === projectId
-        ? null
-        : { careerId, projectId }
-    );
+  const toggleProject = (projectId: string) => {
+    if (openProject === projectId) {
+      setOpenProject(null);
+    } else {
+      setOpenProject(projectId);
+    }
   };
-  const fetchCareer = async () => {
+
+  const fetchCareers = async () => {
     try {
       const processedData = await fetchCareerData();
       console.log("fetchCareerData processedData ---> ", processedData);
-      setCareer(processedData);
+
+      const careersArray = processedData.map((item) => ({
+        properties: item.properties,
+        id: item.id,
+      }));
+      setCareers(careersArray);
     } catch (error) {
       console.error("Error fetching data:", error);
       setError("Failed to fetch data. Please try again later.");
@@ -39,11 +41,11 @@ export default function Experience() {
     }
   };
 
-  const fetchCareerProject = async () => {
+  const fetchCareerProjects = async () => {
     try {
       const processedData = await fetchCareerProjectData();
-      console.log("fetchCareerData processedData ---> ", processedData);
-      setProject(processedData);
+      console.log("fetchCareerProjectData processedData ---> ", processedData);
+      setCareerProjects(processedData);
     } catch (error) {
       console.error("Error fetching data:", error);
       setError("Failed to fetch data. Please try again later.");
@@ -53,8 +55,8 @@ export default function Experience() {
   };
 
   useEffect(() => {
-    fetchCareer();
-    fetchCareerProject();
+    fetchCareers();
+    fetchCareerProjects();
   }, []);
 
   if (error) {
@@ -84,16 +86,16 @@ export default function Experience() {
       </div>
 
       {/* Career List */}
-      {career.map((item) => (
-        <React.Fragment key={item.careerId}>
+      {careers.map((career) => (
+        <React.Fragment key={career.properties?.careerId}>
           <Line />
-          <article id={`career-${item.careerId}`}>
+          <article id={`career-${career.properties?.careerId}`}>
             <h2 className="font-medium text-xl mb-1 tracking-tighter">
-              {item.company}
+              {career.properties?.company}
             </h2>
             <p className="text-neutral-600 dark:text-neutral-400 text-sm">
-              {item.role}, {item.employmentFrom}-
-              {item.employmentTo || "Present"}
+              {career.properties?.role}, {career.properties?.employmentFrom}-
+              {career.properties?.employmentTo || "Present"}
             </p>
             <div className="desc mt-5">
               <p>
@@ -103,28 +105,28 @@ export default function Experience() {
                 community about our products.
               </p>
             </div>
-            {project.length > 0 && (
+            {careerProjects.length > 0 && (
               <div className="projects mt-5">
                 <h3 className="font-medium text-lg">Projects:</h3>
                 <ul className="list-none">
-                  {project.map((project, index) => (
-                    <li key={index} className="mt-2">
-                      <button
-                        onClick={() =>
-                          toggleProject(item.careerId, project.careerId)
-                        }
-                        className="w-full text-left font-semibold text-sm bg-gray-200 dark:bg-gray-400 p-3 rounded-lg dark:text-dark"
-                      >
-                        {index + 1}. {project.title}
-                      </button>
-                      {openProject?.careerId === item.careerId &&
-                        openProject?.projectId === project.careerId && (
+                  {careerProjects
+                    .filter((project) => project.careerId[0] === career.id)
+                    .reverse()
+                    .map((project, index) => (
+                      <li key={index} className="mt-2">
+                        <button
+                          onClick={() => toggleProject(project.projectId)}
+                          className="w-full text-left font-semibold text-sm bg-gray-200 dark:bg-gray-400 p-3 rounded-lg dark:text-dark"
+                        >
+                          {index + 1}. {project.title}
+                        </button>
+                        {openProject === project.projectId && (
                           <div className="project-details mt-2 p-3 bg-gray-100 dark:bg-gray-300 dark:text-dark rounded-lg">
                             <p>Details for Project {index + 1}</p>
                           </div>
                         )}
-                    </li>
-                  ))}
+                      </li>
+                    ))}
                 </ul>
               </div>
             )}

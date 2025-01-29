@@ -14,16 +14,27 @@ export const fetchCareerData = async () => {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    const data: { properties: NotionCareerProps }[] = await response.json();
-    const propertiesOnly = data.map((item) => item.properties);
-    return processCareerData(propertiesOnly);
+    const data: { id: string; properties?: NotionCareerProps }[] =
+      await response.json();
+
+    const propertiesWithId = data.map((item) => {
+      if (item.properties) {
+        return {
+          id: item.id,
+          properties: processCareerData([item.properties])[0],
+        };
+      }
+      return { id: item.id, properties: null };
+    });
+
+    return propertiesWithId;
   } catch (error) {
     console.error("Error fetching data:", error);
     throw new Error("Failed to fetch data. Please try again later.");
   }
 };
 
-// fetchCareerData
+// fetchCareerProjectData
 export const fetchCareerProjectData = async () => {
   try {
     const response = await fetch("/api/career-project", { method: "GET" });
