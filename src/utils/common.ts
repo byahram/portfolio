@@ -1,4 +1,4 @@
-export const formatDate = (dateString: string | null): string => {
+export const formatDate = (dateString: string | null | undefined): string => {
   const [year, month] = dateString
     ? dateString.split("-")
     : ["present", "present"];
