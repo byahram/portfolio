@@ -8,7 +8,7 @@ import Skills from "@/components/about/Skills";
 import Career from "@/components/about/Career";
 import Line from "@/components/Line";
 import ErrorMessage from "@/components/common/ErrorMessage";
-import { CareerData } from "@/types/career";
+import { ApiResponse } from "@/types/career";
 import { fetchCareerData } from "@/lib/apiList";
 import {
   certificationList,
@@ -18,7 +18,7 @@ import {
 } from "@/store/store";
 
 export default function About() {
-  const [career, setCareer] = useState<CareerData[]>([]);
+  const [careers, setCareers] = useState<ApiResponse[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -26,7 +26,11 @@ export default function About() {
     try {
       const processedData = await fetchCareerData();
       console.log("fetchCareerData processedData ---> ", processedData);
-      setCareer(processedData);
+      const careersArray = processedData.map((item) => ({
+        properties: item.properties,
+        id: item.id,
+      }));
+      setCareers(careersArray);
     } catch (error) {
       console.error("Error fetching data:", error);
       setError("Failed to fetch data. Please try again later.");
@@ -45,14 +49,12 @@ export default function About() {
 
   return (
     <section id="about" className="my-10 md:my-16">
-      {!isLoading && (
-        <h2 className="mb-8 text-2xl font-medium tracking-tighter">About</h2>
-      )}
+      <h2 className="mb-8 text-2xl font-medium tracking-tighter">About</h2>
       <Profile data={profile} isLoading={isLoading} />
       <Line />
       <Education data={educationList} isLoading={isLoading} />
       <Line />
-      <Career data={career} isLoading={isLoading} />
+      <Career data={careers} isLoading={isLoading} />
       <Line />
       <Skills data={skillsList} isLoading={isLoading} />
       <Line />

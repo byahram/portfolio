@@ -1,12 +1,12 @@
 import BadgeText from "@/components/BadgeText";
 import ListDot from "@/components/ListDot";
-import { CareerData } from "@/types/career";
+import { ApiResponse } from "@/types/career";
 import Link from "next/link";
 import Skeleton from "@/components/common/Skeleton";
 import { formatDate } from "@/utils/common";
 
 interface CareerProp {
-  data: CareerData[];
+  data: ApiResponse[];
   isLoading: boolean;
 }
 
@@ -65,21 +65,21 @@ const Career = ({ data, isLoading }: CareerProp) => {
               >
                 <div className="flex items-center flex-nowrap w-full md:w-[40%]">
                   <ListDot />
-                  <p className="font-semibold">{item.company}</p>
+                  <p className="font-semibold">{item.properties?.company}</p>
                 </div>
                 <div className="flex flex-col md:w-full ml-16 md:ml-0">
                   <p className="text-gray-700 dark:text-gray-300">
                     <span className="inline-block md:hidden">
                       -&nbsp;재직기간:
                     </span>
-                    &nbsp;{formatDate(item.employmentFrom)} ~{" "}
-                    {formatDate(item.employmentTo)}
+                    &nbsp;{formatDate(item.properties?.employmentFrom)} ~{" "}
+                    {formatDate(item.properties?.employmentTo)}
                   </p>
                   <p className="mt-0.5">
-                    - {item.role} / {item.team}
+                    - {item.properties?.role} / {item.properties?.team}
                   </p>
                   <div className="flex flex-wrap gap-2 mt-2">
-                    {item.techs.map((tech, index) => (
+                    {item.properties?.techs.map((tech, index) => (
                       <BadgeText key={index}>{tech}</BadgeText>
                     ))}
                   </div>
