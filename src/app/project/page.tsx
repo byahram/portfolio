@@ -3,14 +3,14 @@
 import ErrorMessage from "@/components/common/ErrorMessage";
 import ProjectModal from "@/components/project/DetailModal";
 import ProjectCard from "@/components/project/ProjectCard";
-import SkeletonLoading from "@/components/project/ProjectSkeleton";
+import ProjectSkeleton from "@/components/project/ProjectSkeleton";
 import TechStackFilter from "@/components/project/TechStackFilter";
 import { techStackOptions } from "@/store/store";
 import { useEffect, useState } from "react";
 import {
-  NotionSideProjectProps,
+  NotionSideProjProps,
   SideProjectData,
-  processSideProjectData,
+  processSideProjData,
 } from "@/types/sideProject";
 
 export default function Projects() {
@@ -29,10 +29,9 @@ export default function Projects() {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      const data: { properties: NotionSideProjectProps }[] =
-        await response.json();
+      const data: { properties: NotionSideProjProps }[] = await response.json();
       const propertiesOnly = data.map((item) => item.properties);
-      const processedData = processSideProjectData(propertiesOnly);
+      const processedData = processSideProjData(propertiesOnly);
       console.log(" processedData :: ", processedData);
       setProjects(processedData);
     } catch (error) {
@@ -72,7 +71,7 @@ export default function Projects() {
       <h1 className="mb-8 text-2xl font-medium tracking-tighter">Project</h1>
 
       {isLoading ? (
-        <SkeletonLoading />
+        <ProjectSkeleton />
       ) : (
         <>
           {/* Tech Stack Buttons */}
