@@ -11,6 +11,7 @@ import {
   SideProjectData,
   processSideProjData,
 } from "@/types/sideProject";
+import { FaRegFolderOpen } from "react-icons/fa";
 
 export default function Projects() {
   const [projects, setProjects] = useState<SideProjectData[]>([]);
@@ -69,9 +70,21 @@ export default function Projects() {
 
           {/* Projects List */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {filteredProjects.map((project) => (
-              <ProjectCard key={project.projectId} project={project} />
-            ))}
+            {filteredProjects.length > 0 ? (
+              filteredProjects.map((project) => (
+                <ProjectCard key={project.projectId} project={project} />
+              ))
+            ) : (
+              <div className="col-span-1 md:col-span-2 flex flex-col items-center justify-center py-10 text-gray-500 dark:text-gray-300">
+                <FaRegFolderOpen className="text-5xl mb-3 text-gray-400 dark:text-gray-500" />
+                <p className="text-lg font-medium text-gray-600 dark:text-gray-300">
+                  프로젝트가 없습니다.
+                </p>
+                <p className="text-sm text-gray-400 dark:text-gray-500">
+                  다른 기술 스택을 선택해 보세요!
+                </p>
+              </div>
+            )}
           </div>
         </>
       )}
