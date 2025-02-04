@@ -18,7 +18,7 @@ export default function Home() {
       </h1>
 
       {/* introduction */}
-      <div className="introduction space-y-4 leading-relaxed text-gray-700 dark:text-gray-300 text-sm sm:text-base">
+      <div className="introduction space-y-4 leading-relaxed text-gray-700 dark:text-gray-300 text-base">
         <p>
           안녕하세요. 항상 ‘왜?’를 고민하며 사용자 가치를 최우선으로 생각하는
           3년 차 프론트엔드 개발자 김아람입니다.

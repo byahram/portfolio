@@ -3,7 +3,7 @@
 import React from "react";
 import Nav from "./Nav";
 import ThemeBtn from "./ThemeBtn";
-// import Language from "./LangBtn";
+// import LanguageBtn from "./LanguageBtn";
 
 const Header = () => {
   return (
@@ -11,7 +11,7 @@ const Header = () => {
       <div className="flex justify-between items-center lg:sticky lg:top-20">
         <Nav />
         <div className="right flex gap-4 items-center justify-center">
-          {/* <Language /> */}
+          {/* <LanguageBtn /> */}
           <ThemeBtn />
         </div>
       </div>

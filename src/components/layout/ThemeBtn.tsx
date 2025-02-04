@@ -13,9 +13,21 @@ const ThemeBtn = () => {
   if (!mounted) return null;
 
   if (theme === "dark") {
-    return <AiOutlineMoon size={23} onClick={() => setTheme("light")} />;
+    return (
+      <AiOutlineMoon
+        className="cursor-pointer"
+        size={23}
+        onClick={() => setTheme("light")}
+      />
+    );
   } else if (theme === "light") {
-    return <AiOutlineSun size={23} onClick={() => setTheme("dark")} />;
+    return (
+      <AiOutlineSun
+        className="cursor-pointer"
+        size={23}
+        onClick={() => setTheme("dark")}
+      />
+    );
   }
 };
 
