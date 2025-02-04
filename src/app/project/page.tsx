@@ -1,7 +1,6 @@
 "use client";
 
 import ErrorMessage from "@/components/common/ErrorMessage";
-import ProjectModal from "@/components/project/DetailModal";
 import ProjectCard from "@/components/project/ProjectCard";
 import ProjectSkeleton from "@/components/project/ProjectSkeleton";
 import TechStackFilter from "@/components/project/TechStackFilter";
@@ -18,9 +17,6 @@ export default function Projects() {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedStack, setSelectedStack] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedProject, setSelectedProject] =
-    useState<SideProjectData | null>(null);
 
   const fetchData = async () => {
     try {
@@ -32,7 +28,7 @@ export default function Projects() {
       const data: { properties: NotionSideProjProps }[] = await response.json();
       const propertiesOnly = data.map((item) => item.properties);
       const processedData = processSideProjData(propertiesOnly);
-      console.log(" processedData :: ", processedData);
+      console.log("processedData :: ", processedData);
       setProjects(processedData);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -49,16 +45,6 @@ export default function Projects() {
   if (error) {
     return <ErrorMessage message={error} />;
   }
-
-  const openModal = (project: SideProjectData) => {
-    setSelectedProject(project);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedProject(null);
-  };
 
   const filteredProjects = selectedStack
     ? projects
@@ -84,19 +70,10 @@ export default function Projects() {
           {/* Projects List */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {filteredProjects.map((project) => (
-              <ProjectCard
-                key={project.projectId}
-                project={project}
-                openModal={openModal}
-              />
+              <ProjectCard key={project.projectId} project={project} />
             ))}
           </div>
         </>
-      )}
-
-      {/* 모달 */}
-      {isModalOpen && selectedProject && (
-        <ProjectModal project={selectedProject} closeModal={closeModal} />
       )}
     </section>
   );
