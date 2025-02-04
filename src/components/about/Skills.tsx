@@ -1,5 +1,5 @@
-import ListDot from "@/components/ListDot";
-import BadgeText from "@/components/BadgeText";
+import ListDot from "@/components/common/ListDot";
+import BadgeText from "@/components/common/BadgeText";
 import Skeleton from "@/components/common/Skeleton";
 
 interface SkillsItem {

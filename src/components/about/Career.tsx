@@ -1,5 +1,5 @@
-import BadgeText from "@/components/BadgeText";
-import ListDot from "@/components/ListDot";
+import BadgeText from "@/components/common/BadgeText";
+import ListDot from "@/components/common/ListDot";
 import { ApiResponse } from "@/types/career";
 import Link from "next/link";
 import Skeleton from "@/components/common/Skeleton";

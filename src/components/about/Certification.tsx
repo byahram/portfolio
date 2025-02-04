@@ -1,4 +1,4 @@
-import ListDot from "@/components/ListDot";
+import ListDot from "@/components/common/ListDot";
 import Skeleton from "@/components/common/Skeleton";
 
 interface CertificationItem {

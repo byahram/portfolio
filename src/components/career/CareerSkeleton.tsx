@@ -1,5 +1,5 @@
 import Skeleton from "@/components/common/Skeleton";
-import Line from "@/components/Line";
+import Line from "@/components/common/Line";
 import React from "react";
 
 export default function CareerSkeleton() {

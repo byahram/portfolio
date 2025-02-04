@@ -1,4 +1,4 @@
-import BadgeText from "@/components/BadgeText";
+import BadgeText from "@/components/common/BadgeText";
 
 export default function Introduction() {
   return (

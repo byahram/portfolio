@@ -6,7 +6,7 @@ import Education from "@/components/about/Education";
 import Profile from "@/components/about/Profile";
 import Skills from "@/components/about/Skills";
 import Career from "@/components/about/Career";
-import Line from "@/components/Line";
+import Line from "@/components/common/Line";
 import ErrorMessage from "@/components/common/ErrorMessage";
 import { ApiResponse } from "@/types/career";
 import { fetchCareerData } from "@/lib/apiList";

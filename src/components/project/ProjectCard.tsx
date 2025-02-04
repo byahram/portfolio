@@ -1,4 +1,4 @@
-import BadgeText from "@/components/BadgeText";
+import BadgeText from "@/components/common/BadgeText";
 import { SideProjectData } from "@/types/sideProject";
 import Image from "next/image";
 

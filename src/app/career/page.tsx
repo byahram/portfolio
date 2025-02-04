@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Line from "@/components/Line";
+import Line from "@/components/common/Line";
 import { ApiResponse, CareerProjectData } from "@/types/career";
 import { fetchCareerData, fetchCareerProjectData } from "@/lib/apiList";
 import ErrorMessage from "@/components/common/ErrorMessage";
