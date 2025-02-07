@@ -140,13 +140,12 @@ export const certificationList = [
 
 // [Project] Tech Stack Options
 export const techStackOptions = [
-  "HTML/CSS",
-  "JavaScript",
-  "TypeScript",
   "React",
   "Next.js",
   "Vue",
   "Nuxt.js",
+  "JavaScript",
+  "TypeScript",
   "Node.js",
-  "TailwindCss",
+  "Tailwindcss",
 ];

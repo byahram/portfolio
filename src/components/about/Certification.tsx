@@ -52,7 +52,7 @@ const Certification = ({ data, isLoading }: CertificationProp) => {
               >
                 <ListDot />
                 <p className="mr-2">{item.name}</p>
-                <span className="ml-3 text-sm text-gray-500">
+                <span className="ml-3 text-sm text-gray-500 opacity-0 sm:opacity-100">
                   ({item.date} 취득)
                 </span>
               </li>

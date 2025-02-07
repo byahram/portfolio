@@ -52,7 +52,7 @@ const Skills = ({ data, isLoading }: SkillsProp) => {
             {/* Frontend Skills */}
             {Object.entries(data.technical).map(([category, skills], index) => (
               <div key={index} className="skill-category mb-5">
-                <div className="flex items-center flex-nowrap w-[32%] mb-3">
+                <div className="flex items-center flex-nowrap w-full md:w-[32%] mb-3">
                   <ListDot />
                   <p className="font-semibold capitalize">{category}</p>
                 </div>
@@ -65,7 +65,7 @@ const Skills = ({ data, isLoading }: SkillsProp) => {
             ))}
             {/* Soft Skills */}
             <div className="skill-category">
-              <div className="flex items-center flex-nowrap w-[32%] mb-3">
+              <div className="flex items-center flex-nowrap w-full md:w-[32%] mb-3">
                 <ListDot />
                 <p className="font-semibold capitalize">Soft Skills</p>
               </div>

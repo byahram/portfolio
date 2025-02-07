@@ -1,4 +1,5 @@
 import Skeleton from "@/components/common/Skeleton";
+import ListDot from "@/components/common/ListDot";
 interface EducationItem {
   college: string;
   degree: string;
@@ -55,15 +56,15 @@ const Education = ({ data, isLoading }: EducationProp) => {
             {data.map((item, index) => (
               <li
                 key={index}
-                className="[&:not(:first-child)]:mt-6 flex items-start justify-start gap-5 sm:gap-12"
+                className="[&:not(:first-child)]:mt-6 flex flex-col md:flex-row items-start justify-start gap-3 md:gap-12 sm:flex"
               >
                 <div className="flex items-center flex-nowrap">
-                  <div className="relative w-1.5 h-1.5 bg-dark dark:bg-light ml-3 mr-5 rounded-full"></div>
+                  <ListDot />
                   <p className="text-sm text-gray-700 dark:text-gray-300 sm:max-w-[120px] sm:break-words">
                     {item.duration.from} ~ {item.duration.to}
                   </p>
                 </div>
-                <div className="flex flex-col">
+                <div className="flex flex-col ml-9 md:ml-0">
                   <p className="font-semibold">{item.college}</p>
                   <p className="text-gray-700 dark:text-gray-300 mt-0.5">
                     - {item.degree} in {item.major} ({item.status})

@@ -67,12 +67,9 @@ const Career = ({ data, isLoading }: CareerProp) => {
                   <ListDot />
                   <p className="font-semibold">{item.properties?.company}</p>
                 </div>
-                <div className="flex flex-col md:w-full ml-16 md:ml-0">
+                <div className="flex flex-col md:w-full ml-9 md:ml-0">
                   <p className="text-gray-700 dark:text-gray-300">
-                    <span className="inline-block md:hidden">
-                      -&nbsp;재직기간:
-                    </span>
-                    &nbsp;{formatDate(item.properties?.employmentFrom)} ~{" "}
+                    {formatDate(item.properties?.employmentFrom)} ~{" "}
                     {formatDate(item.properties?.employmentTo)}
                   </p>
                   <p className="mt-0.5">
