@@ -6,30 +6,20 @@ import ProjectSkeleton from "@/components/project/ProjectSkeleton";
 import TechStackFilter from "@/components/project/TechStackFilter";
 import { techStackOptions } from "@/store/store";
 import { useEffect, useState } from "react";
-import {
-  NotionSideProjProps,
-  SideProjectData,
-  processSideProjData,
-} from "@/types/sideProject";
+import { ApiResponse } from "@/types/sideProject";
 import { FaRegFolderOpen } from "react-icons/fa";
+import { fetchSideProjectData } from "@/lib/apiList";
 
 export default function Projects() {
-  const [projects, setProjects] = useState<SideProjectData[]>([]);
+  const [projects, setProjects] = useState<ApiResponse[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedStack, setSelectedStack] = useState("");
 
-  const fetchData = async () => {
+  const fetchSideProjects = async () => {
     try {
-      const response = await fetch("/api/side-project", { method: "GET" });
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const data: { properties: NotionSideProjProps }[] = await response.json();
-      const propertiesOnly = data.map((item) => item.properties);
-      const processedData = processSideProjData(propertiesOnly);
-      console.log("processedData :: ", processedData);
+      const processedData = await fetchSideProjectData();
+      console.log("fetchSideProjects processedData ---> ", processedData);
       setProjects(processedData);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -40,7 +30,7 @@ export default function Projects() {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchSideProjects();
   }, []);
 
   if (error) {
@@ -49,7 +39,10 @@ export default function Projects() {
 
   const filteredProjects = selectedStack
     ? projects
-        .filter((project) => project.tech.includes(selectedStack))
+        .filter(
+          (project) =>
+            project.properties?.tech?.includes(selectedStack) ?? false
+        )
         .reverse()
     : projects.reverse();
 
@@ -72,7 +65,7 @@ export default function Projects() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {filteredProjects.length > 0 ? (
               filteredProjects.map((project) => (
-                <ProjectCard key={project.projectId} project={project} />
+                <ProjectCard key={project.id} project={project} />
               ))
             ) : (
               <div className="col-span-1 md:col-span-2 flex flex-col items-center justify-center py-10 text-gray-500 dark:text-gray-300">

@@ -4,7 +4,10 @@ import {
   NotionCareerProjectProps,
   processCareerProjectData,
 } from "@/types/career";
-import { NotionSideProjProps, processSideProjData } from "@/types/sideProject";
+import {
+  NotionSideProjectProps,
+  processSideProjectData,
+} from "@/types/sideProject";
 
 // fetchCareerData
 export const fetchCareerData = async () => {
@@ -60,9 +63,24 @@ export const fetchSideProjectData = async () => {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    const data: { properties: NotionSideProjProps }[] = await response.json();
-    const propertiesOnly = data.map((item) => item.properties);
-    return processSideProjData(propertiesOnly);
+    const data: {
+      id: string;
+      url: string;
+      properties: NotionSideProjectProps["properties"] | null;
+    }[] = await response.json();
+
+    const sideProjects = data.map((item) => {
+      if (item.properties) {
+        return {
+          id: item.id,
+          url: item.url,
+          properties: processSideProjectData([item])[0], // 단일 객체 처리
+        };
+      }
+      return { id: item.id, url: item.url, properties: null }; // properties가 null일 경우
+    });
+
+    return sideProjects;
   } catch (error) {
     console.error("Error fetching data:", error);
     throw new Error("Failed to fetch data. Please try again later.");
