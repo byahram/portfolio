@@ -1,12 +1,12 @@
 import BadgeText from "@/components/common/BadgeText";
 import ListDot from "@/components/common/ListDot";
-import { ApiResponse } from "@/types/career";
+import { CareerApiResponse } from "@/types/career";
 import Link from "next/link";
 import Skeleton from "@/components/common/Skeleton";
 import { formatDate } from "@/utils/common";
 
 interface CareerProp {
-  data: ApiResponse[];
+  data: CareerApiResponse[];
   isLoading: boolean;
 }
 

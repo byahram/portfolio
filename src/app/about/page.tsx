@@ -8,7 +8,7 @@ import Skills from "@/components/about/Skills";
 import Career from "@/components/about/Career";
 import Line from "@/components/common/Line";
 import ErrorMessage from "@/components/common/ErrorMessage";
-import { ApiResponse } from "@/types/career";
+import { CareerApiResponse } from "@/types/career";
 import { fetchCareerData } from "@/lib/apiList";
 import {
   certificationList,
@@ -18,7 +18,7 @@ import {
 } from "@/store/store";
 
 export default function About() {
-  const [careers, setCareers] = useState<ApiResponse[]>([]);
+  const [careers, setCareers] = useState<CareerApiResponse[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
