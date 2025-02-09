@@ -2,21 +2,23 @@
 
 import React, { useEffect, useState } from "react";
 import Line from "@/components/common/Line";
-import { ApiResponse, CareerProjectData } from "@/types/career";
+import { CareerApiResponse, ProjApiResponse } from "@/types/career";
 import { fetchCareerData, fetchCareerProjectData } from "@/lib/apiList";
 import ErrorMessage from "@/components/common/ErrorMessage";
 import CareerSkeleton from "@/components/career/CareerSkeleton";
 import Introduction from "@/components/career/Introduction";
+import { formatDate } from "@/utils/common";
+import ListDot from "@/components/common/ListDot";
 
 export default function Experience() {
-  const [careers, setCareers] = useState<ApiResponse[]>([]);
-  const [careerProjects, setCareerProjects] = useState<CareerProjectData[]>([]);
+  const [careers, setCareers] = useState<CareerApiResponse[]>([]);
+  const [careerProjects, setCareerProjects] = useState<ProjApiResponse[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isLoadingCareer, setIsLoadingCareer] = useState(true);
   const [isLoadingProject, setIsLoadingProject] = useState(true);
   const [openProject, setOpenProject] = useState<string | null>(null);
 
-  const toggleProject = (projectId: string) => {
+  const toggleProject = (projectId: string | null) => {
     if (openProject === projectId) {
       setOpenProject(null);
     } else {
@@ -28,12 +30,7 @@ export default function Experience() {
     try {
       const processedData = await fetchCareerData();
       console.log("fetchCareerData processedData ---> ", processedData);
-
-      const careersArray = processedData.map((item) => ({
-        properties: item.properties,
-        id: item.id,
-      }));
-      setCareers(careersArray);
+      setCareers(processedData);
     } catch (error) {
       console.error("Error fetching data:", error);
       setError("Failed to fetch data. Please try again later.");
@@ -79,45 +76,104 @@ export default function Experience() {
 
           {/* Career List */}
           {careers.map((career) => (
-            <React.Fragment key={career.properties?.careerId}>
+            <React.Fragment key={career.properties?.no}>
               <Line />
-              <article id={`career-${career.properties?.careerId}`}>
+              <article id={`career-0${career.properties?.no}`}>
                 <h2 className="font-medium text-xl mb-1 tracking-tighter">
                   {career.properties?.company}
                 </h2>
-                <p className="text-neutral-600 dark:text-neutral-400 text-sm">
-                  {career.properties?.role}, {career.properties?.employmentFrom}
-                  -{career.properties?.employmentTo || "Present"}
+                <p className="text-neutral-600 dark:text-neutral-400 text-sm mb-5">
+                  {career.properties?.role},{" "}
+                  {formatDate(career.properties?.employmentFrom)} -{" "}
+                  {formatDate(career.properties?.employmentTo)}
                 </p>
-                <div className="desc mt-5">
-                  <p>
-                    I joined <a href="https://vercel.com/home">Vercel</a> early
-                    to grow <a href="https://nextjs.org">Next.js</a> and our
-                    developer community. I built our Developer Relations team to
-                    teach our community about our products.
-                  </p>
-                </div>
+                <p className="desc mb-2">{career.properties?.description}</p>
+                {career.properties?.rnr && (
+                  <ul className="flex flex-col gap-1">
+                    {career.properties?.rnr.map((item, index) => (
+                      <li key={index} className="flex items-center">
+                        <ListDot />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                )}
                 {careerProjects.length > 0 && (
                   <div className="projects mt-5">
                     <h3 className="font-medium text-lg">Projects:</h3>
                     <ul className="list-none">
                       {careerProjects
-                        .filter((project) => project.careerId[0] === career.id)
+                        .filter(
+                          (project) =>
+                            project.properties?.careerId[0] === career.id
+                        )
                         .reverse()
                         .map((project, index) => (
                           <li key={index} className="mt-2">
                             <button
-                              onClick={() => toggleProject(project.projectId)}
+                              onClick={() =>
+                                toggleProject(project.properties?.no ?? null)
+                              }
                               className="w-full text-left font-semibold text-sm bg-gray-200 dark:bg-neutral-700 p-3 rounded-lg dark:text-light hover:bg-gray-300 dark:hover:bg-neutral-600"
                             >
-                              {index + 1}. {project.title}
+                              {index + 1}. {project.properties?.title}
                             </button>
-                            {openProject === project.projectId && (
-                              <div
-                                className="project-details mt-2 p-3 bg-gray-100 dark:bg-neutral-800 dark:text-gray-100 rounded-lg 
-                          transition-all duration-300 ease-in-out"
-                              >
-                                <p>Details for Project {index + 1}</p>
+                            {openProject === project.properties?.no && (
+                              <div className="project-details mt-2 p-3 bg-gray-100 dark:bg-neutral-800 dark:text-gray-100 rounded-lg transition-all duration-300 ease-in-out">
+                                <h4 className="font-medium text-md">
+                                  {project.properties?.title}
+                                </h4>
+                                <p className="mt-1 text-sm">
+                                  {project.properties?.introduction}
+                                </p>
+                                <p className="mt-1 text-sm">
+                                  <strong>Technologies:</strong>{" "}
+                                  {project.properties?.tech.join(", ")}
+                                </p>
+                                <p className="mt-1 text-sm">
+                                  <strong>Team Composition:</strong>{" "}
+                                  {project.properties?.team_composition}
+                                </p>
+                                <p className="mt-1 text-sm">
+                                  <strong>Contribution:</strong>{" "}
+                                  {project.properties?.contribution}
+                                </p>
+                                <p className="mt-1 text-sm">
+                                  <strong>Responsibilities:</strong>
+                                </p>
+                                {project.properties?.responsibilities && (
+                                  <ul className="list-disc list-inside text-sm">
+                                    {project.properties?.responsibilities.map(
+                                      (task, i) => (
+                                        <li key={i}>{task}</li>
+                                      )
+                                    )}
+                                  </ul>
+                                )}
+                                {project.properties?.achievements.length >
+                                  0 && (
+                                  <>
+                                    <p className="mt-1 text-sm">
+                                      <strong>Achievements:</strong>
+                                    </p>
+                                    <ul className="list-disc list-inside text-sm">
+                                      {project.properties?.achievements.map(
+                                        (achievement, i) => (
+                                          <li key={i}>{achievement}</li>
+                                        )
+                                      )}
+                                    </ul>
+                                  </>
+                                )}
+                                {project.properties?.reference && (
+                                  <a
+                                    href={project.properties?.reference}
+                                    className="mt-1 text-sm"
+                                  >
+                                    <strong>Reference:</strong>{" "}
+                                    {project.properties?.reference}
+                                  </a>
+                                )}
                               </div>
                             )}
                           </li>

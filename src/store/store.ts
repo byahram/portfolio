@@ -19,12 +19,11 @@ export const galleryList = [
 
 // [About] Profile
 export const profile = {
-  photo: "/images/profile.jpg",
-  phone: "010-0000-0000",
+  photo: "/images/home/profile.jpg",
+  phone: "010-****-****",
   email: "ahram0223@naver.com",
   github: "https://github.com/byahram",
-  bio: "Full-stack developer with a passion for building efficient and scalable web applications using React, Next.js, and Node.js.",
-  location: "Seoul, South Korea",
+  location: "서울 서대문구",
 };
 
 // [About] Education List

@@ -26,11 +26,7 @@ export default function About() {
     try {
       const processedData = await fetchCareerData();
       console.log("fetchCareerData processedData ---> ", processedData);
-      const careersArray = processedData.map((item) => ({
-        properties: item.properties,
-        id: item.id,
-      }));
-      setCareers(careersArray);
+      setCareers(processedData);
     } catch (error) {
       console.error("Error fetching data:", error);
       setError("Failed to fetch data. Please try again later.");

@@ -17,20 +17,17 @@ export const fetchCareerData = async () => {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    const data: { id: string; properties?: NotionCareerProps }[] =
-      await response.json();
+    const data: {
+      id: string;
+      properties?: NotionCareerProps["properties"] | null;
+    }[] = await response.json();
 
-    const propertiesWithId = data.map((item) => {
-      if (item.properties) {
-        return {
-          id: item.id,
-          properties: processCareerData([item.properties])[0],
-        };
-      }
-      return { id: item.id, properties: null };
-    });
+    const careers = data.map((item) => ({
+      id: item.id,
+      properties: item.properties ? processCareerData([item])[0] ?? null : null,
+    }));
 
-    return propertiesWithId;
+    return careers;
   } catch (error) {
     console.error("Error fetching data:", error);
     throw new Error("Failed to fetch data. Please try again later.");
@@ -45,10 +42,20 @@ export const fetchCareerProjectData = async () => {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    const data: { properties: NotionCareerProjectProps }[] =
-      await response.json();
-    const propertiesOnly = data.map((item) => item.properties);
-    return processCareerProjectData(propertiesOnly);
+    const data: {
+      id: string;
+      properties?: NotionCareerProjectProps["properties"] | null;
+    }[] = await response.json();
+
+    const careerProjects = data.map((item) => {
+      const processedData = processCareerProjectData([item]);
+      return {
+        id: item.id,
+        properties: processedData.length > 0 ? processedData[0] : null, // 빈 배열이면 null
+      };
+    });
+
+    return careerProjects;
   } catch (error) {
     console.error("Error fetching data:", error);
     throw new Error("Failed to fetch data. Please try again later.");
