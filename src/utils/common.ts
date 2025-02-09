@@ -1,6 +1,6 @@
 export const formatDate = (dateString: string | null | undefined): string => {
-  const [year, month] = dateString
-    ? dateString.split("-")
-    : ["present", "present"];
+  if (!dateString) return "재직중";
+
+  const [year, month] = dateString.split("-");
   return `${year}.${month}`;
 };
