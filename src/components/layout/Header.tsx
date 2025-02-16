@@ -14,11 +14,17 @@ const Header = () => {
     const handleScroll = () => {
       if (isMobile) {
         setScrolled(window.scrollY > 10);
+      } else {
+        setScrolled(false);
       }
     };
 
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
+      if (window.innerWidth < 768) {
+        setIsMobile(true);
+      } else {
+        setIsMobile(false);
+      }
     };
 
     handleScroll();
