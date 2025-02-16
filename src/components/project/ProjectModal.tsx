@@ -32,7 +32,7 @@ export default function ProjectModal({
         <h2 className="text-2xl font-bold text-gray-800 dark:text-light mb-4">
           {project.title}
         </h2>
-        <div className="relative overflow-y-auto max-h-[calc(80vh-6rem)] space-y-4">
+        <div className="relative overflow-y-auto max-h-[calc(80vh-6rem)] space-y-4 pb-3">
           <div className="relative w-full h-0 pb-[56.25%] rounded-lg overflow-hidden">
             <Image
               src={project.thumbnail || "/images/default_16_9.avif"}
