@@ -7,6 +7,11 @@ import { TbAlphabetKorean } from "react-icons/tb";
 // import { useRouter } from "next/router";
 
 const LanguageBtn = () => {
+  const toggleModal = () => {
+    window.alert(
+      "현재 다국어 지원 기능이 준비 중입니다. \n곧 업데이트될 예정이니, 기다려 주세요!"
+    );
+  };
   //   const [locale, setLocale] = useState<"en" | "ko">("en");
   //   const router = useRouter();
 
@@ -26,7 +31,10 @@ const LanguageBtn = () => {
   //   };
 
   return (
-    <button className="cursor-pointer transition-all duration-300">
+    <button
+      onClick={toggleModal}
+      className="cursor-pointer transition-all duration-300"
+    >
       <TbAlphabetKorean size={25} />
     </button>
   );
