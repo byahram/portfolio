@@ -59,7 +59,7 @@ const Header = () => {
           <Nav isOpen={isOpen} setIsOpen={setIsOpen} />
         </div>
         <div
-          className={`flex items-center gap-2 md:gap-4 transition-all ${
+          className={`flex items-center gap-2 md:gap-3 transition-all ${
             scrolled
               ? "fixed top-4 right-4 bg-dark/10 dark:bg-white/50 dark:text-dark px-6 py-3 rounded-3xl shadow-lg z-10"
               : ""
