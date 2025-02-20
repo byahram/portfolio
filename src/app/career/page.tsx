@@ -9,6 +9,7 @@ import CareerSkeleton from "@/components/career/CareerSkeleton";
 import Introduction from "@/components/career/Introduction";
 import { formatDate } from "@/utils/common";
 import ListDot from "@/components/common/ListDot";
+import ProjectDetails from "@/components/career/ProjectDetails";
 
 export default function Experience() {
   const [careers, setCareers] = useState<CareerApiResponse[]>([]);
@@ -98,6 +99,7 @@ export default function Experience() {
                     ))}
                   </ul>
                 )}
+                {/* Career Projects List */}
                 {careerProjects.length > 0 && (
                   <div className="projects mt-5">
                     <h3 className="font-medium text-lg">Projects:</h3>
@@ -119,62 +121,7 @@ export default function Experience() {
                               {index + 1}. {project.properties?.title}
                             </button>
                             {openProject === project.properties?.no && (
-                              <div className="project-details mt-2 p-3 bg-gray-100 dark:bg-neutral-800 dark:text-gray-100 rounded-lg transition-all duration-300 ease-in-out">
-                                <h4 className="font-medium text-md">
-                                  {project.properties?.title}
-                                </h4>
-                                <p className="mt-1 text-sm">
-                                  {project.properties?.introduction}
-                                </p>
-                                <p className="mt-1 text-sm">
-                                  <strong>Technologies:</strong>{" "}
-                                  {project.properties?.tech.join(", ")}
-                                </p>
-                                <p className="mt-1 text-sm">
-                                  <strong>Team Composition:</strong>{" "}
-                                  {project.properties?.team_composition}
-                                </p>
-                                <p className="mt-1 text-sm">
-                                  <strong>Contribution:</strong>{" "}
-                                  {project.properties?.contribution}
-                                </p>
-                                <p className="mt-1 text-sm">
-                                  <strong>Responsibilities:</strong>
-                                </p>
-                                {project.properties?.responsibilities && (
-                                  <ul className="list-disc list-inside text-sm">
-                                    {project.properties?.responsibilities.map(
-                                      (task, i) => (
-                                        <li key={i}>{task}</li>
-                                      )
-                                    )}
-                                  </ul>
-                                )}
-                                {project.properties?.achievements.length >
-                                  0 && (
-                                  <>
-                                    <p className="mt-1 text-sm">
-                                      <strong>Achievements:</strong>
-                                    </p>
-                                    <ul className="list-disc list-inside text-sm">
-                                      {project.properties?.achievements.map(
-                                        (achievement, i) => (
-                                          <li key={i}>{achievement}</li>
-                                        )
-                                      )}
-                                    </ul>
-                                  </>
-                                )}
-                                {project.properties?.reference && (
-                                  <a
-                                    href={project.properties?.reference}
-                                    className="mt-1 text-sm"
-                                  >
-                                    <strong>Reference:</strong>{" "}
-                                    {project.properties?.reference}
-                                  </a>
-                                )}
-                              </div>
+                              <ProjectDetails project={project.properties} />
                             )}
                           </li>
                         ))}
