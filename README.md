@@ -87,7 +87,7 @@ npm run start
 
 | Page                                                                  | Notion DB                                                     |
 | --------------------------------------------------------------------- | ------------------------------------------------------------- |
-| ![CareerList](/public/images/readme/CareerScreen.png)                 | ![CareerList](/public/images/readme/CareerDB.png)             |
+| ![CareerList](/public/images/readme/CareerScreen.png)                 | ![CareerList](/public/images/readme/CareerDB.PNG)             |
 | ![CareerProjectScreen](/public/images/readme/CareerProjectScreen.png) | ![CareerProjectDB](/public/images/readme/CareerProjectDB.PNG) |
 | ![SideProjectScreen](/public/images/readme/SideProjectScreen.png)     | ![SideProjectDB](/public/images/readme/SideProjectDB.PNG)     |
 
