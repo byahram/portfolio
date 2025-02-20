@@ -1,10 +1,52 @@
-# 포트폴리오 프로젝트
+# Next.js Portfolio
 
-이 프로젝트는 **Next.js**를 기반으로 한 포트폴리오 웹사이트입니다. 다크 모드 지원, 다국어 기능 및 애니메이션 효과를 포함하여 직관적인 디자인을 제공합니다.
+이 프로젝트는 **Next.js Portfolio**는 **Next.js** 프레임워크를 기반으로 구축된 포트폴리오 웹사이트입니다. 이 웹사이트는 다크 모드와 다국어 지원 기능(예정)을 제공하며, 애니메이션 효과를 통해 사용자 경험을 개선하고 있습니다. 또한, 실시간 콘텐츠 관리 기능을 제공하기 위해 Notion API와 연동되어, 사용자는 Notion에서 관리하는 데이터를 동적으로 웹사이트에 불러올 수 있습니다.
 
 - [Demo](https://ahramkim-nextjs-portfolio.vercel.app/)
 
-```bash
+<br>
+
+## 🛠 기술 스택
+
+- **프레임워크**: `Next.js 15`
+- **프론트엔드**: `React 19`, `Tailwind CSS`
+- **애니메이션**: `Framer Motion`
+- **다크 모드 지원**: `next-themes`
+- **다국어 지원**: `next-intl`
+- **백엔드 및 API**: `Notion API` (`@notionhq/client`, `@notion-render/client`)
+- **HTTP 요청**: `Axios`
+- **아이콘**: `react-icons`
+
+<br>
+
+## 🛠 사용 라이브러리 설명
+
+- **`Framer Motion`**: 부드러운 애니메이션 구현을 위해 사용. 특히 팝업 효과와 페이지 전환 애니메이션에 활용됩니다.
+- **`next-themes`**: 다크 모드와 라이트 모드를 쉽게 구현할 수 있도록 도와주는 라이브러리입.
+- **`next-intl`**: 다국어 지원을 위한 라이브러리로, `React` 애플리케이션에서 국제화(i18n)를 손쉽게 처리할 수 있습니다.
+- **`Axios`**: API 요청 및 데이터 관리를 위한 HTTP 클라이언트 라이브러리입니다.
+- **`Notion API`**: Notion에서 관리하는 콘텐츠를 웹사이트에서 실시간으로 불러오기 위해 사용됩니다.
+
+<br>
+
+## 📦 설치 및 실행 방법
+
+### 1️⃣ 프로젝트 클론
+
+```sh
+git clone <저장소 URL>
+cd portfolio
+```
+
+### 2️⃣ 패키지 설치
+
+```sh
+npm install
+```
+
+### 3️⃣ 개발 서버 실행
+
+```sh
 npm run dev
 ```
 
