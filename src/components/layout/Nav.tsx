@@ -1,15 +1,15 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { navList } from "@/store/store";
 import { FiMenu, FiX } from "react-icons/fi";
 
 interface NavProps {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  routing: Record<string, { name: string }>;
 }
 
-const Nav: React.FC<NavProps> = ({ isOpen, setIsOpen }) => {
+const Nav: React.FC<NavProps> = ({ isOpen, setIsOpen, routing }) => {
   const router = usePathname();
 
   return (
@@ -27,7 +27,7 @@ const Nav: React.FC<NavProps> = ({ isOpen, setIsOpen }) => {
 
       {/* Desktop Navigation */}
       <div className="hidden md:flex flex-row space-x-0 gap-4">
-        {Object.entries(navList).map(([path, { name }]) => {
+        {Object.entries(routing).map(([path, { name }]) => {
           return (
             <Link
               key={path}
@@ -51,7 +51,7 @@ const Nav: React.FC<NavProps> = ({ isOpen, setIsOpen }) => {
         }`}
       >
         {isOpen &&
-          Object.entries(navList).map(([path, { name }]) => (
+          Object.entries(routing).map(([path, { name }]) => (
             <Link
               key={path}
               href={path}

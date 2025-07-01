@@ -5,6 +5,13 @@ import Nav from "./Nav";
 import ThemeBtn from "./ThemeBtn";
 import LanguageBtn from "./LanguageBtn";
 
+const routing = {
+  "/": { name: "home" },
+  "/resume": { name: "resume" },
+  "/projects": { name: "projects" },
+  "/contact": { name: "contact" },
+};
+
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -47,20 +54,25 @@ const Header = () => {
   }, [isOpen, isMobile]);
 
   return (
-    <header id="header" className="relative tracking-tight">
+    <header
+      id="header"
+      className={`transition-all duration-300 z-50 w-full ${
+        scrolled && !isMobile ? "fixed top-0 left-0" : "relative"
+      }`}
+    >
       <div className="relative flex justify-between items-center w-full">
         <div
           className={`transition-all ${
-            scrolled
+            scrolled && isMobile
               ? "fixed top-4 left-4 bg-dark/10 dark:bg-white/50 dark:text-dark px-6 py-3 rounded-3xl shadow-lg z-10"
               : ""
           }`}
         >
-          <Nav isOpen={isOpen} setIsOpen={setIsOpen} />
+          <Nav isOpen={isOpen} setIsOpen={setIsOpen} routing={routing} />
         </div>
         <div
           className={`flex items-center gap-2 md:gap-3 transition-all ${
-            scrolled
+            scrolled && isMobile
               ? "fixed top-4 right-4 bg-dark/10 dark:bg-white/50 dark:text-dark px-6 py-3 rounded-3xl shadow-lg z-10"
               : ""
           }`}
