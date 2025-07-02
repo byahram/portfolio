@@ -1,15 +1,7 @@
 import Skeleton from "@/components/common/Skeleton";
 import ListDot from "@/components/common/ListDot";
-interface EducationItem {
-  college: string;
-  degree: string;
-  major: string;
-  status: string;
-  duration: {
-    from: string;
-    to: string;
-  };
-}
+import { EducationItem } from "@/types/education";
+import { sortByProperty } from "@/utils/common";
 
 interface EducationProp {
   data: EducationItem[];
@@ -43,6 +35,12 @@ const EducationSkeleton = () => {
 };
 
 const Education = ({ data, isLoading }: EducationProp) => {
+  const sortedEducation = sortByProperty<EducationItem>(
+    data,
+    (item) => parseInt(item.properties?.no || "0"),
+    "desc"
+  );
+
   return (
     <article className="education">
       {isLoading ? (
@@ -53,7 +51,7 @@ const Education = ({ data, isLoading }: EducationProp) => {
             Education
           </h2>
           <ul>
-            {data.map((item, index) => (
+            {sortedEducation.map((item, index) => (
               <li
                 key={index}
                 className="[&:not(:first-child)]:mt-6 flex flex-col md:flex-row items-start justify-start gap-3 md:gap-12 sm:flex"
@@ -61,13 +59,14 @@ const Education = ({ data, isLoading }: EducationProp) => {
                 <div className="flex items-center flex-nowrap">
                   <ListDot />
                   <p className="text-sm text-gray-700 dark:text-gray-300 sm:max-w-[120px] sm:break-words">
-                    {item.duration.from} ~ {item.duration.to}
+                    {item.properties?.from} ~ {item.properties?.to}
                   </p>
                 </div>
                 <div className="flex flex-col ml-9 md:ml-0">
-                  <p className="font-semibold">{item.college}</p>
+                  <p className="font-semibold">{item.properties?.name}</p>
                   <p className="text-gray-700 dark:text-gray-300 mt-0.5">
-                    - {item.degree} in {item.major} ({item.status})
+                    - {item.properties?.degree} in {item.properties?.major} (
+                    {item.properties?.status})
                   </p>
                 </div>
               </li>

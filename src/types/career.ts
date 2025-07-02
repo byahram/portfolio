@@ -17,6 +17,7 @@ export interface NotionCareerRaw {
     };
     tenure: { rich_text: { plain_text: string }[] };
     status: { status: { name: string } };
+    language: { rich_text: { plain_text: string }[] };
   } | null;
 }
 
@@ -33,6 +34,7 @@ export interface CareerData {
   employTo: string | null;
   tenure: string;
   status: string;
+  language: string;
 }
 
 export interface CareerItem {
@@ -61,6 +63,7 @@ export const transformCareerDataFromNotion = (
         employTo: "",
         tenure: "",
         status: "",
+        language: "",
       };
     }
 
@@ -76,6 +79,7 @@ export const transformCareerDataFromNotion = (
       period,
       tenure,
       status,
+      language,
     } = properties;
 
     return {
@@ -93,6 +97,7 @@ export const transformCareerDataFromNotion = (
       employTo: period?.date?.end || null,
       tenure: tenure.rich_text.map((text) => text.plain_text).join(""),
       status: status.status.name,
+      language: language.rich_text.map((text) => text.plain_text).join(""),
     };
   });
 };

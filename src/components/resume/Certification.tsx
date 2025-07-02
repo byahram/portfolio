@@ -1,10 +1,7 @@
 import ListDot from "@/components/common/ListDot";
 import Skeleton from "@/components/common/Skeleton";
-
-interface CertificationItem {
-  name: string;
-  date: string;
-}
+import { CertificationItem } from "@/types/certification";
+import { sortByProperty } from "@/utils/common";
 
 interface CertificationProp {
   data: CertificationItem[];
@@ -35,6 +32,13 @@ const CertificationSkeleton = () => {
 };
 
 const Certification = ({ data, isLoading }: CertificationProp) => {
+  // no 내림차순 정렬
+  const sortedCertification = sortByProperty<CertificationItem>(
+    data,
+    (item) => parseInt(item.properties?.no || "0"),
+    "desc"
+  );
+
   return (
     <article className="certification">
       {isLoading ? (
@@ -45,15 +49,15 @@ const Certification = ({ data, isLoading }: CertificationProp) => {
             Certification
           </h2>
           <ul>
-            {data.map((item, index) => (
+            {sortedCertification.map((item, index) => (
               <li
                 key={index}
-                className="[&:not(:first-child)]:mt-2.5 flex items-center"
+                className="[&:not(:first-child)]:mt-3 flex items-center"
               >
                 <ListDot />
-                <p className="mr-2">{item.name}</p>
+                <p className="mr-2">{item.properties?.name}</p>
                 <span className="ml-3 text-sm text-gray-500 opacity-0 sm:opacity-100">
-                  ({item.date} 취득)
+                  ({item.properties?.date} 취득)
                 </span>
               </li>
             ))}

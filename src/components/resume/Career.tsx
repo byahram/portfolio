@@ -1,12 +1,12 @@
 import BadgeText from "@/components/common/BadgeText";
 import ListDot from "@/components/common/ListDot";
-import { CareerApiResponse } from "@/types/career";
+import { CareerItem } from "@/types/career";
 import Link from "next/link";
 import Skeleton from "@/components/common/Skeleton";
-import { formatDate } from "@/utils/common";
+import { formatDate, sortByProperty } from "@/utils/common";
 
 interface CareerProp {
-  data: CareerApiResponse[];
+  data: CareerItem[];
   isLoading: boolean;
 }
 
@@ -37,6 +37,13 @@ const CareerSkeleton = () => {
 };
 
 const Career = ({ data, isLoading }: CareerProp) => {
+  // no 내림차순 정렬
+  const sortedCareer = sortByProperty<CareerItem>(
+    data,
+    (item) => parseInt(item.properties?.no || "0"),
+    "desc"
+  );
+
   return (
     <article className="career">
       {isLoading ? (
@@ -58,7 +65,7 @@ const Career = ({ data, isLoading }: CareerProp) => {
             </Link>
           </div>
           <ul>
-            {data.map((item, index) => (
+            {sortedCareer.map((item, index) => (
               <li
                 key={index}
                 className="[&:not(:first-child)]:mt-6 flex flex-col md:flex-row items-start justify-start gap-3 md:gap-12"
@@ -69,8 +76,8 @@ const Career = ({ data, isLoading }: CareerProp) => {
                 </div>
                 <div className="flex flex-col md:w-full ml-9 md:ml-0">
                   <p className="text-gray-700 dark:text-gray-300">
-                    {formatDate(item.properties?.employmentFrom)} ~{" "}
-                    {formatDate(item.properties?.employmentTo)}
+                    {formatDate(item.properties?.employFrom)} ~{" "}
+                    {formatDate(item.properties?.employTo)}
                   </p>
                   <p className="mt-0.5">
                     - {item.properties?.role} / {item.properties?.team}

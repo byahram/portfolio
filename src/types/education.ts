@@ -10,6 +10,7 @@ export interface NotionEducationRaw {
     status: { status: { name: string } };
     from: { rich_text: { plain_text: string }[] };
     to: { rich_text: { plain_text: string }[] };
+    language: { rich_text: { plain_text: string }[] };
   };
 }
 
@@ -23,6 +24,7 @@ export interface EducationData {
   status: string;
   from: string;
   to: string;
+  language: string;
 }
 
 export interface EducationItem {
@@ -48,11 +50,22 @@ export const transformEducationDataFromNotion = (
         status: "",
         from: "",
         to: "",
+        language: "",
       };
     }
 
-    const { no, name, location, degree, major, gpa, status, from, to } =
-      properties;
+    const {
+      no,
+      name,
+      location,
+      degree,
+      major,
+      gpa,
+      status,
+      from,
+      to,
+      language,
+    } = properties;
 
     return {
       no: no.number.toString(),
@@ -64,6 +77,7 @@ export const transformEducationDataFromNotion = (
       status: status.status.name,
       from: from.rich_text.map((text) => text.plain_text).join(""),
       to: to.rich_text.map((text) => text.plain_text).join(""),
+      language: language.rich_text.map((text) => text.plain_text).join(""),
     };
   });
 };

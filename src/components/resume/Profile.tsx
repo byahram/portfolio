@@ -1,12 +1,6 @@
 import Image from "next/image";
 import Skeleton from "@/components/common/Skeleton";
-
-interface ProfileItem {
-  photo: string;
-  phone: string;
-  email: string;
-  github: string;
-}
+import { ProfileItem } from "@/types/profile";
 
 interface ProfileProp {
   data: ProfileItem;
@@ -35,22 +29,22 @@ const Profile = ({ data, isLoading }: ProfileProp) => {
         <div className="flex flex-col sm:flex-row justify-center items-center gap-10">
           <Image
             alt="Profile picture"
-            src={data.photo}
+            src={data.properties?.photo || "/images/home/profile.jpg"}
             className="rounded-full object-cover aspect-square w-48 md:w-56 object-top grayscale transition-all duration-300 hover:grayscale-0"
             width={224}
             height={224}
           />
           <ul className="flex flex-col justify-center gap-4 text-center sm:text-left">
             <li>
-              <span className="font-bold">Phone:</span> {data.phone}
+              <span className="font-bold">Phone:</span> {data.properties?.phone}
             </li>
             <li>
-              <span className="font-bold">Email:</span> {data.email}
+              <span className="font-bold">Email:</span> {data.properties?.email}
             </li>
             <li>
-              <span className="font-bold">Github:</span>{" "}
-              <a href={data.github} className="hover:underline">
-                {data.github}
+              <span className="font-bold">Github:</span>
+              <a href={data.properties?.github} className="hover:underline">
+                {data.properties?.github}
               </a>
             </li>
           </ul>

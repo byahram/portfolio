@@ -5,6 +5,7 @@ export interface NotionCertificationRaw {
     name: { title: { plain_text: string }[] };
     organized: { rich_text: { plain_text: string }[] };
     date: { date: { start: string; end: string | null } };
+    language: { rich_text: { plain_text: string }[] };
   };
 }
 
@@ -13,6 +14,7 @@ export interface CertificationData {
   name: string;
   organized: string;
   date: string;
+  language: string;
 }
 
 export interface CertificationItem {
@@ -33,16 +35,18 @@ export const transformCertificationDataFromNotion = (
         name: "",
         organized: "",
         date: "",
+        language: "",
       };
     }
 
-    const { no, name, organized, date } = properties;
+    const { no, name, organized, date, language } = properties;
 
     return {
       no: no.number.toString(),
       name: name.title.map((text) => text.plain_text).join(""),
       organized: organized.rich_text.map((text) => text.plain_text).join(""),
       date: date.date.start,
+      language: language.rich_text.map((text) => text.plain_text).join(""),
     };
   });
 };
